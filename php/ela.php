@@ -1,5 +1,6 @@
 <?php
 require_once(__dir__ . DIRECTORY_SEPARATOR . 'secure_pass.php');
+require_once(implode(DIRECTORY_SEPARATOR, array( __dir__, 'PHPMailer', 'PHPMailerAutoload.php' )));
 
 /**
 * ELA Main class
@@ -34,20 +35,30 @@ class ELA {
 		$pass = $user->execute(array( $_SESSION['user']['accountno'] ));
 		$old_data = $user->fetch( PDO::FETCH_ASSOC );
 
-		// Upload photos
-		if ($pass) {
-			$start = __dir__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR;
-			$old = DIRECTORY_SEPARATOR . ucfirst($old_data['last']) . ', ' . ucfirst($old_data['first']) . '.jpg';
-			$new = DIRECTORY_SEPARATOR . ucfirst($data['last']) . ', ' . ucfirst($data['first']) . '.jpg';
-			if (
-				isset($_FILES['image']) && !$_FILES['image']['error']
-			) $pass = $this->process_image( $_FILES['image'], $start, $old );
-		}
+		// Init mail object
+		$mail = new PHPMailer;
+		$mail->setFrom(config::defaultEmail, config::defaultFrom);
+		$mail->isHTML(true);
 
-		// Rename photos with the new name
-		if ($pass) $pass = rename( $start . 'sml' . $old, $start . 'sml' . $new );
-		if ($pass) $pass = rename( $start . 'full' . $old, $start . 'full' . $new );
-		if ($pass) $pass = rename( $start . 'orig' . $old, $start . 'orig' . $new );
+		// Upload photo
+		if (	
+			$pass &&
+			isset($_FILES['image']) &&
+			!$_FILES['image']['error']
+		) {
+			// Build image path
+			$start = __dir__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR;
+			$new = DIRECTORY_SEPARATOR . ucfirst($data['last']) . ', ' . ucfirst($data['first']) . '.jpg';
+			$image_path = $start . 'orig' . $new;
+
+			// Verify appropriate mime types
+			$allowed_types = array("image/gif", "image/jpeg", "image/jpg", "image/pjpeg", "image/x-png", "image/png");
+			$pass = in_array($_FILES['image']["type"], $allowed_types);
+			if (!$pass) array_push($this->status, 'image-type-error');
+
+			// Upload the dang thing
+			if ($pass) $pass = move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
+		}
 
 		// Update settings
 		if ($pass) {
@@ -61,80 +72,20 @@ class ELA {
 			$_SESSION['user'] = $user->fetch( PDO::FETCH_ASSOC );
 		}
 
+		// Generate Email HTML
+		$html = "They changed some stuff...";
+
 		// Email profile change to UA...
+		$this->addAddress('nwoods@azworld.com', 'Nathan Woods');
+		$this->Subject   = 'ELA Profile Update: ' . $data['first'] . ' ' . $data['last'];
+		$this->Body      = $html;
+		$this->AltBody   = strip_tags($html);
+		if (isset($image_path) && file_exists($image_path)) $mail->addAttachment($image_path);
+		if ($pass) $pass = $this->send();
 
+		// Cleanup and respond accordingly
+		if (isset($image_path) && file_exists($image_path)) unlink($image_path); // delete image
 		return $pass;
-	}
-	private function process_image( $image, $base, $name ) {
-		// Verify image is of proper type
-		$pass = ($image["type"] == "image/gif") || 
-			($image["type"] == "image/jpeg")    || 
-			($image["type"] == "image/jpg")     || 
-			($image["type"] == "image/pjpeg")   || 
-			($image["type"] == "image/x-png")   || 
-			($image["type"] == "image/png");
-		if (!$pass) array_push($this->status, 'image-type-error');
-
-		// Upload new file
-		if (file_exists($base . 'orig' . $name)) unlink($base . 'orig' . $name); // delete image
-		if ($pass) $pass = move_uploaded_file($image['tmp_name'], $base . 'orig' . $name);
-
-		// Get Image Data
-		if ($pass) {
-			list($width, $height, $mime) = getimagesize($base . 'orig' . $name);
-			switch ($mime) {
-				case IMAGETYPE_GIF:  $source = imagecreatefromgif( $base . 'orig' . $name); break;
-				case IMAGETYPE_PNG:  $source = imagecreatefrompng( $base . 'orig' . $name); break;
-				case IMAGETYPE_JPEG: $source = imagecreatefromjpeg($base . 'orig' . $name); break;
-				default: $pass = false;
-			}
-		}
-
-		// Resize + store images for web
-		if ($pass) $pass = $this->resize_crop_save($source, $base . 'full' . $name, 200);
-		if ($pass) $pass = $this->resize_crop_save($source, $base . 'sml' . $name, 100);
-		return $pass;
-	}
-	private function resize_crop_save( $source, $dest, $height ) {
-		// Init variables
-		$src_width = imagesx($source);
-		$src_height = imagesy($source);
-		$width = ($height / $src_height) * $src_width; // Scale Factor
-
-		// Prepare crop (square image if in landscape)
-		$src_x = 0;
-		if ($width > $height) {
-			$src_x = floor( ($src_width - $src_height) / 2 );
-			$src_width = $src_height;
-			$width = $height;
-		}
-
-		// Resize + crop
-		$img = imagecreatetruecolor($width, $height);
-		imagecopyresampled($img, $source, 0, 0, $src_x, 0, $width, $height, $src_width, $src_height);
-
-		// Save
-		if (file_exists($dest)) unlink($dest); // delete dest if exists
-		$pass = imagejpeg($img, $dest);
-
-		// Cleanup
-		imagedestroy($img);
-		return $pass;
-	}
-
-	public function clean_files() {
-		// set_time_limit(0);
-		// echo '<pre>';
-		// $base = __dir__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR;
-		// $source = array_diff(scandir($base . 'orig'), array('..', '.'));
-
-		// foreach ($source as $key => $image) {
-		// 	$resource =    imagecreatefromjpeg($base . 'orig' . DIRECTORY_SEPARATOR . $image);
-		// 	$this->resize_crop_save($resource, $base . 'full' . DIRECTORY_SEPARATOR . $image, 200);
-		// 	$this->resize_crop_save($resource, $base . 'sml'      . DIRECTORY_SEPARATOR . $image, 100);
-		// 	echo $key . "\n";
-		// 	imagedestroy($resource);
-		// }
 	}
 
 	public function my_conference_info() {
@@ -159,5 +110,3 @@ class ELA {
 		return $ret;
 	}
 }
-
-// if (isset($_REQUEST['cron'])) (new ELA())->clean_files();
