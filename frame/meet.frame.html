@@ -34,7 +34,7 @@
 		</div>
 
 		<div class="well clearfix">
-			<blockquote style="margin-bottom:0">
+			<blockquote style="margin-bottom:0" <?php echo mt_rand(0,1) ? 'class="blockquote-reverse"' : '';  ?> >
 				<?php $random_quote = $app->random_quote(); ?>
 				<p><?php echo $random_quote['quote']; ?></p>
 				<footer><cite title="<?php echo $random_quote['author']; ?>"><?php echo $random_quote['author']; ?></cite></footer>
