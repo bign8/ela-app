@@ -1,0 +1,16 @@
+<td ng-class="{editing:active}">
+	<div class="view" ng-click="start_editing()" ng-hide="active">
+		<span ng-bind="colField ? colField : '-'"></span>
+		<!-- <i class="pull-right glyphicon glyphicon-pencil"></i> -->
+	</div>
+	<form ng-submit="done_editing()">
+		<input type="text" 
+			ng-show="active"
+			class="edit form-control input-sm"
+			ng-model="colField"
+			ng-blur="done_editing()"
+			edit-escape="undo_editing()"
+			edit-focus="active"
+		>
+	</form>
+</td>
