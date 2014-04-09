@@ -42,14 +42,19 @@ class ELA {
 		if ( $pass && isset($_FILES['image']) && !$_FILES['image']['error'] ) {
 
 			// Verify appropriate mime types
-			$allowed_types = array("image/gif", "image/jpeg", "image/jpg", "image/pjpeg", "image/x-png", "image/png");
-			$pass = in_array($_FILES['image']["type"], $allowed_types);
-			if (!$pass) array_push($this->status, 'image-type-error');
-
-			// Upload the dang thing
-			$image_path = implode(DIRECTORY_SEPARATOR, array( __DIR__, '..', 'img', 'orig', $data['last'].'-'.$data['first'].'.jpg' ));
-			if ($pass) $pass = move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
-			$mail->addAttachment($image_path);
+			if (false === $ext = array_search($_FILES['image']["type"], array(
+				'gif' => "image/gif",
+				'jpg' => "image/jpeg",
+				'jpg' => "image/jpg",
+				'jpg' => "image/pjpeg",
+				'png' => "image/x-png",
+				'png' => "image/png"
+			))) {
+				$pass = false;
+				array_push($this->status, 'image-type-error');
+			} else {
+				$mail->addAttachment($_FILES['image']['tmp_name'], $data['last'].'-'.$data['first'].'.'.$ext);
+			}
 		}
 
 		// Update settings
@@ -78,8 +83,6 @@ class ELA {
 		$html .= "</table>\r\n";
 		if ($pass) $pass = $mail->notify('ELA Profile Update: ' . $data['first'] . ' ' . $data['last'], $html);
 
-		// Cleanup and respond accordingly
-		if ($mail->attachmentExists()) unlink($image_path); // delete image
 		return $pass;
 	}
 
@@ -104,11 +107,4 @@ class ELA {
 		if ( is_null($ret['author']) ) $ret['author'] = 'Anonymous';
 		return $ret;
 	}
-}
-
-if (isset($_REQUEST['test-message'])) {
-	echo '<pre/>';
-	$mail = new Mailer();
-	$mail->SMTPDebug = 2;
-	echo $mail->notify('Super Awesome', 'Possibly <b>NOT!!</b>') ? 'sent' : 'fault';
 }
