@@ -10,6 +10,10 @@
 			<?php $random_user = $app->random_user(); ?>
 			<div class="col-sm-8">
 				<div class="page-header" style="margin-top:0">
+					<div class="pull-right">
+						<a href="tel:<?php echo $random_user['phone']; ?>"><i class="glyphicon glyphicon-phone-alt"></i></a>
+						<a href="mailto:<?php echo $random_user['email']; ?>"><i class="glyphicon glyphicon-envelope"></i></a>
+					</div>
 					<h1 style="margin-bottom:0">Meet <?php echo $random_user['first']; ?></h1>
 					<p>
 						<?php echo $random_user['title']; ?><br/>

@@ -61,6 +61,10 @@
 								data-ng-attr-title="{{user.first}} {{user.last}}"
 								data-ng-attr-alt="{{user.first}} {{user.last}}" alt="John Doe" src="data/img/Doe,%20John.jpg" />
 							</div>
+							<div class="pull-right">
+								<a data-ng-href="tel:{{user.phone}}" data-ng-show="user.phone"><i class="glyphicon glyphicon-phone-alt"></i></a>
+								<a data-ng-href="mailto:{{user.email}}" data-ng-show="user.email"><i class="glyphicon glyphicon-envelope"></i></a>
+							</div>
 							<strong>
 								<span data-ng-bind="user.first">John</span>&nbsp;
 								<span data-ng-bind="user.last">Doe</span>&nbsp;
