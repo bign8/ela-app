@@ -18,7 +18,7 @@
 					<option value="" disabled> -- CHOOSE ONE -- </option>
 				</select>
 			</div>
-			<h2>Program Years <small>Choose one</small></h2>
+			<h2>Program Year <small>Choose one</small></h2>
 		</div>
 		<div class="col-md-6">
 			<h2>Year In Program <small ng-show="activePrgmYear.programYear">During {{activePrgmYear.programYear}}</small></h2>
@@ -61,7 +61,6 @@
 	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-resource.min.js"></script>
 	<script src="event.js"></script>
 </body>
 </html>
