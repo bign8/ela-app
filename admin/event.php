@@ -62,9 +62,6 @@
 			</table>
 		</div>
 	</div>
-
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
-	<script src="js/event.js"></script>
 </div>
 
 <?php include('tpl' . DIRECTORY_SEPARATOR . 'footer.tpl.html'); ?>
