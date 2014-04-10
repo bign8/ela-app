@@ -240,58 +240,68 @@ $processor->process();
 
 __halt_compiler() ?>
 
-<h3>{{MSG}}</h3>
-<form action="uploader.php" method="post" enctype="multipart/form-data">
-	<label for="file">Filename:</label>
-	<input type="file" name="file" id="file">
-	<input type="hidden" name="hash" value="{{HASH_VALUE}}">
-	<input type="submit" name="submit" value="Upload">
-</form>
-<p>
-	Below is a full list of columns that <strong>NEED</strong> to be in the CSV
-	<ul>
-		<li>
-			<code>accountno</code> A unique identifier for each user (should stay the same year to year)
-		</li>
-		<li>
-			<code>first</code> First name of the participant
-		</li>
-		<li>
-			<code>last</code> Last name of the participant
-		</li>
-		<li>
-			<code>company</code> The company of the participant
-		</li>
-		<li>
-			<code>title</code> The job title of the participant
-		</li>
-		<li>
-			<code>city</code> The address city of the participant
-		</li>
-		<li>
-			<code>state</code> The address state of the participant
-		</li>
-		<li>
-			<code>bio</code> The biography of the participant
-		</li>
-		<li>
-			<code>gradyear</code> The graduation year of the participant
-		</li>
-		<li>
-			<code>phone1</code> The phone number of the participant
-		</li>
-		<li>
-			<code>contsupref</code> The email number of the participant
-		</li>
-		<li>
-			<code>username</code> The username of the participant
-		</li>
-		<li>
-			<code>password</code> The password of the participant (unencrypted)
-		</li>
-		<li>
-			<code>event 14-15</code> At least one event (usually 3) that presents the year span in <code>[0-9]{2}-[0-9]{2}</code> format
-		</li>
-	</ul>
-	<i>* Note: the case of the titles does not matter (ie: <u>FIRST</u>, <u>FiRsT</u>, and <u>first</u> are the same)</i>
-</p>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<h3>{{MSG}}</h3>
+		<form action="uploader.php" method="post" enctype="multipart/form-data" class="form-horizontal">
+			<div class="form-group">
+				<label for="file">Filename:</label>
+				<input type="file" name="file" id="file" class="form-control">
+			</div>
+			<input type="hidden" name="hash" value="{{HASH_VALUE}}">
+			<input type="submit" name="submit" value="Upload">
+			<br/><br/><br/><br/><br/>
+		</form>
+	</div>
+</div>
+
+<div class="well">
+	<p>
+		Below is a full list of columns that <strong>NEED</strong> to be in the CSV
+		<ul>
+			<li>
+				<code>accountno</code> A unique identifier for each user (should stay the same year to year)
+			</li>
+			<li>
+				<code>first</code> First name of the participant
+			</li>
+			<li>
+				<code>last</code> Last name of the participant
+			</li>
+			<li>
+				<code>company</code> The company of the participant
+			</li>
+			<li>
+				<code>title</code> The job title of the participant
+			</li>
+			<li>
+				<code>city</code> The address city of the participant
+			</li>
+			<li>
+				<code>state</code> The address state of the participant
+			</li>
+			<li>
+				<code>bio</code> The biography of the participant
+			</li>
+			<li>
+				<code>gradyear</code> The graduation year of the participant
+			</li>
+			<li>
+				<code>phone1</code> The phone number of the participant
+			</li>
+			<li>
+				<code>contsupref</code> The email number of the participant
+			</li>
+			<li>
+				<code>username</code> The username of the participant
+			</li>
+			<li>
+				<code>password</code> The password of the participant (unencrypted)
+			</li>
+			<li>
+				<code>event 14-15</code> At least one event (usually 3) that presents the year span in <code>[0-9]{2}-[0-9]{2}</code> format
+			</li>
+		</ul>
+		<i>* Note: the case of the titles does not matter (ie: <u>FIRST</u>, <u>FiRsT</u>, and <u>first</u> are the same)</i>
+	</p>
+</div>
