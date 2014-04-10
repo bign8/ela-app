@@ -8,11 +8,85 @@
 	<h2>ELA Admin Home</h2>
 </div>
 
-<p>This is your ELA anministration section.</p>
-<ul>
-	<li><a href="uploader.php">Upload a CSV</a> of new data.</li>
-	<li><a href="quote.php">Create, Read, Update and Delete Quotes</a> that are used on the website.</li>
-	<li><a href="event.php">Manage linked documents</a> to various events along with workbook content.s</li>
-</ul>
+<div class="row">
+	<div class="col-md-4">
+		<div class="well">
+			<h3>
+				<div class="pull-right">
+					<a href="event.php" class="btn btn-xs btn-info">
+						Manage <i class="glyphicon glyphicon-resize-small"></i>
+					</a>
+				</div>
+				Events
+			</h3>
+			<p>Add and edit metadata for years and events</p>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			<h3>
+				<a href="quote.php" class="btn pull-right btn-xs btn-info">
+					Manage <i class="glyphicon glyphicon-edit"></i>
+				</a>
+				Quotes
+			</h3>
+			<p>Add, edit, remove and modify quotes</p>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			<h3>
+				<a href="emulate.php" class="btn pull-right btn-xs btn-info">
+					Emulate <i class="glyphicon glyphicon-edit"></i>
+				</a>
+				Simulate Users
+			</h3>
+			<p>Login as a program attendee</p>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			<h3>
+				<a href="uploader.php" class="btn pull-right btn-xs btn-info">
+					Upload <i class="glyphicon glyphicon-edit"></i>
+				</a>
+				Update System
+			</h3>
+			<p>Upload CSV for upcoming year</p>
+		</div>
+	</div>
+	<!--
+	<div class="col-md-4">
+		<div class="well">
+			Something 7
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			Something 8
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			Something 9
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			Something 10
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			Something 11
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			Something 12
+		</div>
+	</div>
+	-->
+</div>
 
 <?php include('tpl' . DIRECTORY_SEPARATOR . 'footer.tpl.html'); ?>

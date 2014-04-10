@@ -45,6 +45,9 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php if ($auth): ?>
+						<?php if (isset($_SESSION['admin'])): ?>
+							<li><a href="admin/">Admin</a></li>
+						<?php endif; ?>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<?php echo $_SESSION['user']['first'] . ' ' . $_SESSION['user']['last']; ?>
