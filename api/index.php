@@ -12,13 +12,13 @@ set_exception_handler(function(Exception $e) use (&$request) {
 	$request->view->error( $e->getMessage() );
 });
 
-// Dumb authentication
-session_start();
-if (!isset($_SESSION['user'])) throw new Exception('Authentication Required', 401);
-
 // Initialize objects
 $db = new PDO( 'sqlite:' . implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'db.sqlite3')) );
 $request = new Request();
+
+// Dumb authentication
+session_start();
+if (!isset($_SESSION['user'])) throw new Exception('Authentication Required', 401);
 
 // Process request
 $controller_name = ucfirst( $request->getUrlElement(0) ) . 'Controller';
