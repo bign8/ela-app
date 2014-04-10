@@ -1,9 +1,14 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Quote Editor</title>
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<?php 
+	require_once(implode(DIRECTORY_SEPARATOR, array( __DIR__, 'php', 'ela-admin.php' )));
+	$admin->requiresAdmin();
+	include('tpl' . DIRECTORY_SEPARATOR . 'header.tpl.html');
+?>
+
+<div class="page-header clearfix">
+	<h2>ELA Quote Manager</h2>
+</div>
+
+<div data-ng-app="ela-quote">
 	<style>
 		.table .add { width: 100%; }
 		.table .view label { width: 100%; }
@@ -11,10 +16,7 @@
 		.table .edit { display: none; }
 		.table .editing .edit { display: block; }
 	</style>
-</head>
-<body data-ng-app="ela-quote">
-	
-	<div class="container" data-ng-controller="quote-edit">
+	<div data-ng-controller="quote-edit">
 		<table class="table" data-ng-cloak>
 			<thead>
 				<tr>
@@ -64,6 +66,7 @@
 	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
-	<script src="quote.js"></script>
-</body>
-</html>
+	<script src="js/quote.js"></script>
+</div>
+
+<?php include('tpl' . DIRECTORY_SEPARATOR . 'footer.tpl.html'); ?>

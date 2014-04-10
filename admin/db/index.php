@@ -3,6 +3,10 @@
 $dsn = 'sqlite:' . implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', '..', 'db.sqlite3') );
 $clients = array();
 
+// If $_SESSION['admin'] not set...die
+require_once( implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'php', 'ela-admin.php')) );
+if (!$admin->requiresAdmin(false)) die(header('Location: ../login.php'));
+
 /**
 * The MIT License
 * http://creativecommons.org/licenses/MIT/

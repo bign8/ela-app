@@ -1,13 +1,16 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Quote Editor</title>
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body data-ng-app="ela-event">
+<?php 
+	require_once(implode(DIRECTORY_SEPARATOR, array( __DIR__, 'php', 'ela-admin.php' )));
+	$admin->requiresAdmin();
+	include('tpl' . DIRECTORY_SEPARATOR . 'header.tpl.html');
+?>
+
+<div class="page-header clearfix">
+	<h2>ELA Event Manager</h2>
+</div>
+
+<div data-ng-app="ela-event">
 	
-	<div class="container" data-ng-controller="event-edit" data-ng-cloak>
+	<div data-ng-controller="event-edit" data-ng-cloak>
 		<div class="col-md-12">
 			<div class="col-md-6" style="position:absolute;bottom:0;right:0">
 				<select 
@@ -18,10 +21,10 @@
 					<option value="" disabled> -- CHOOSE ONE -- </option>
 				</select>
 			</div>
-			<h2>Program Year <small>Choose one</small></h2>
+			<h3>Program Year <small>Choose one</small></h3>
 		</div>
 		<div class="col-md-6">
-			<h2>Year In Program <small ng-show="activePrgmYear.programYear">During {{activePrgmYear.programYear}}</small></h2>
+			<h3>Year In Program <small ng-show="activePrgmYear.programYear">During {{activePrgmYear.programYear}}</small></h3>
 			<table class="table" ng-show="filteredYears.length">
 				<thead>
 					<tr>
@@ -40,7 +43,7 @@
 			</table>
 		</div>
 		<div class="col-md-6">
-			<h2>Events <small ng-show="activePrgmYear.programYear">In {{activePrgmYear.programYear}}</small></h2>
+			<h3>Events <small ng-show="activePrgmYear.programYear">In {{activePrgmYear.programYear}}</small></h3>
 			<table class="table" ng-show="filteredEvents.length">
 				<thead>
 					<tr>
@@ -61,6 +64,7 @@
 	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
-	<script src="event.js"></script>
-</body>
-</html>
+	<script src="js/event.js"></script>
+</div>
+
+<?php include('tpl' . DIRECTORY_SEPARATOR . 'footer.tpl.html'); ?>
