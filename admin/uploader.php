@@ -2,16 +2,12 @@
 
 require_once(implode( DIRECTORY_SEPARATOR, array(__DIR__, '..', 'php', 'secure_pass.php') ));
 
-// Configuration
-$upload_name = implode( DIRECTORY_SEPARATOR, array(__DIR__, '..', 'data', 'admin', 'upload-data.csv') );
-
 // Uploader class (uses content after __hault_compiler)
 class UPLOADER {
 	const field_name = 'file';
 
-	function __construct($upload_name) {
+	function __construct() {
 		session_start();
-		$this->upload_name = $upload_name;
 	}
 
 	private function upload($msg = 'Upload new data') {
@@ -24,6 +20,7 @@ class UPLOADER {
 	}
 
 	public function execute() {
+		$ret = null;
 		if (!isset($_REQUEST['submit'])) $this->upload();
 
 		// Verify and upload file
@@ -46,18 +43,17 @@ class UPLOADER {
 			if ($_FILES[ $this::field_name ]['size'] > 1000000)
 				throw new RuntimeException('Exceeded filesize limit');
 
-			if (!move_uploaded_file( $_FILES[ $this::field_name ]['tmp_name'], $this->upload_name ))
-				throw new RuntimeException('Failed to move uploaded file');
-
+			$ret = $_FILES[ $this::field_name ]['tmp_name'];
 		} catch (RuntimeException $e) {
 			$this->upload( $e->getMessage() );
 		}
+		return $ret;
 	}
 }
 
 //* Upload CSV Data
-$uploader = new UPLOADER( $upload_name );
-$uploader->execute();
+$uploader = new UPLOADER();
+$upload_name = $uploader->execute();
 // */
 
 // Processor class (requires $upload_name's file)
