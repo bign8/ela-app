@@ -1,6 +1,6 @@
 <?php
 	$conferences = $app->my_conference_info();
-	$class = 'col-sm-' . (12 / sizeof($conferences));
+	$class = sizeof($conferences) == 0 ? 'col-sm-12' : 'col-sm-' . (12 / sizeof($conferences));
 ?>
 
 <div class="container" id="myela">
