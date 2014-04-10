@@ -421,9 +421,7 @@ class ArrestDB {
 	public static function Serve($on = null, $route = null, $callback = null) {
 		static $root = null;
 
-		if (isset($_SERVER['REQUEST_METHOD']) !== true) {
-			$_SERVER['REQUEST_METHOD'] = 'CLI';
-		}
+		if (isset($_SERVER['REQUEST_METHOD']) !== true) $_SERVER['REQUEST_METHOD'] = 'CLI';
 
 		if ((empty($on) === true) || (strcasecmp($_SERVER['REQUEST_METHOD'], $on) === 0)) {
 			if (is_null($root) === true) {

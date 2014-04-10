@@ -60,6 +60,9 @@
 							</ul>
 						</li>
 					<?php else: ?>
+						<?php if (isset($_SESSION['admin'])): ?>
+							<li><a href="admin/">Admin</a></li>
+						<?php endif; ?>
 						<li><a href="#login">Login</a></li>
 					<?php endif; ?>
 				</ul>
@@ -68,27 +71,27 @@
 	</div>
 
 	<div id="wrap" data-ng-app="ela">
-		<?php if ($auth) $ela_include('frame/meet.frame.html'); ?>
+		<?php if ($auth) $ela_include('tpl/meet.frame.html'); ?>
 
-		<?php $ela_include('frame/home.frame.html'); ?>
+		<?php $ela_include('tpl/home.frame.html'); ?>
 
-		<?php $ela_include('frame/about.frame.html'); ?>
+		<?php $ela_include('tpl/about.frame.html'); ?>
 
-		<?php $ela_include('frame/faq.frame.html'); ?>
+		<?php $ela_include('tpl/faq.frame.html'); ?>
 
-		<?php if ($auth) $ela_include('frame/search.frame.html'); ?>
+		<?php if ($auth) $ela_include('tpl/search.frame.html'); ?>
 
-		<?php $ela_include('frame/samples.frame.html'); ?>
+		<?php $ela_include('tpl/samples.frame.html'); ?>
 
-		<?php $ela_include('frame/hints.frame.html'); ?>
+		<?php $ela_include('tpl/hints.frame.html'); ?>
 
-		<?php $ela_include('frame/desc.frame.html'); ?>
+		<?php $ela_include('tpl/desc.frame.html'); ?>
 
-		<?php if (!$auth) $ela_include('frame/login.frame.html'); ?>
+		<?php if (!$auth) $ela_include('tpl/login.frame.html'); ?>
 
-		<?php if ($auth) $ela_include('frame/myELA.frame.html'); ?>
+		<?php if ($auth) $ela_include('tpl/myELA.frame.html'); ?>
 
-		<?php if ($auth) $ela_include('frame/profile.frame.html'); ?>
+		<?php if ($auth) $ela_include('tpl/profile.frame.html'); ?>
 
 		<div style="min-height:60px;height:60px"></div><!-- same as a push -->
 	</div><!-- ./wrap -->
