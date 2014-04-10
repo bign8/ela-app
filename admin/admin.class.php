@@ -1,13 +1,13 @@
 <?php
 
-require_once(implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', '..', 'php', 'secure_pass.php' )));
+require_once(implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'php', 'secure_pass.php' )));
 
-class ELA_Admin {
+class Admin {
 	private $status = array();
 
 	function __construct() {
 		session_start();
-		$this->db = new PDO('sqlite:' . implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', '..', 'db.sqlite3')));
+		$this->db = new PDO('sqlite:' . implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'db.sqlite3')));
 	}
 
 	public function __get($name) {
@@ -41,7 +41,7 @@ class ELA_Admin {
 	}
 }
 
-$admin = new ELA_Admin();
+$admin = new Admin();
 switch ( isset($_REQUEST['action']) ? $_REQUEST['action'] : null ) {
 	case 'login':  $admin->login($_POST['user'], $_POST['pass']); break;
 	case 'logout': $admin->logout(); break;

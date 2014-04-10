@@ -1,11 +1,9 @@
 <?php
-
-	require_once(implode(DIRECTORY_SEPARATOR, array( __DIR__, 'php', 'ela-admin.php' )));
+	require_once('admin.class.php');
 	include('tpl' . DIRECTORY_SEPARATOR . 'header.tpl.html');
 
 	if ($admin->login_status) die(header('Location: index.php'));
 	if ($admin->login_status === false) echo 'login error';
-
 ?>
 
 <div class="page-header clearfix">

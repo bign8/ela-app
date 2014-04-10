@@ -1,5 +1,5 @@
 <?php 
-	require_once(implode(DIRECTORY_SEPARATOR, array( __DIR__, 'php', 'ela-admin.php' )));
+	require_once('admin.class.php');
 	$admin->requiresAdmin();
 	include('tpl' . DIRECTORY_SEPARATOR . 'header.tpl.html');
 ?>
@@ -36,7 +36,7 @@
 						</form>
 					</td>
 				</tr>
-				<tr data-ng-repeat="quote in quotes">
+				<tr data-ng-repeat="quote in quotes | orderBy:['author','quote']">
 					<td data-col-editor data-col-field="quote.author" data-save-cb="update(quote)">-</td>
 					<td data-col-editor data-col-field="quote.quote" data-save-cb="update(quote)">-</td>
 					<td><button type="button" class="close" aria-hidden="true" data-ng-click="remove_item(quote)">&times;</button></td>

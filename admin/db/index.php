@@ -1,11 +1,9 @@
 <?php
 
-$dsn = 'sqlite:' . implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', '..', 'db.sqlite3') );
-$clients = array();
-
 // If $_SESSION['admin'] not set...die
-require_once( implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'php', 'ela-admin.php')) );
+require_once( implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'admin.class.php')) );
 if (!$admin->requiresAdmin(false)) die(header('Location: ../login.php'));
+$dsn = 'sqlite:' . implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', '..', 'db.sqlite3') );
 
 /**
 * The MIT License
@@ -17,16 +15,7 @@ if (!$admin->requiresAdmin(false)) die(header('Location: ../login.php'));
 
 if (strcmp(PHP_SAPI, 'cli') === 0) exit('ArrestDB should not be run from CLI.' . PHP_EOL);
 
-if ((empty($clients) !== true) && (in_array($_SERVER['REMOTE_ADDR'], (array) $clients) !== true)) {
-	$result = array(
-		'error' => array(
-			'code' => 403,
-			'status' => 'Forbidden',
-		),
-	);
-
-	exit(ArrestDB::Reply($result));
-} else if (ArrestDB::Query($dsn) === false) {
+if (ArrestDB::Query($dsn) === false) {
 	$result = array(
 		'error' => array(
 			'code' => 503,

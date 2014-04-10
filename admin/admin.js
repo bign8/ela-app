@@ -83,7 +83,7 @@ directive('colEditor', function () {
 			colField: '=',
 			saveCb: '&'
 		},
-		templateUrl: 'tpl/event.colEditor.tpl.html',
+		templateUrl: 'tpl/colEditor.tpl.html',
 		link: function (scope, elem, attrs) {
 			var origional = null;
 			scope.active = false;

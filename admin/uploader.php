@@ -1,9 +1,7 @@
 <?php
 
-require_once(implode(DIRECTORY_SEPARATOR, array( __DIR__, 'php', 'ela-admin.php' )));
+require_once('admin.class.php');
 $admin->requiresAdmin();
-
-require_once(implode( DIRECTORY_SEPARATOR, array(__DIR__, '..', 'php', 'secure_pass.php') ));
 
 // Uploader class (uses content after __hault_compiler)
 class UPLOADER {
