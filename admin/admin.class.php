@@ -39,10 +39,25 @@ class Admin {
 	public function logout() {
 		unset($_SESSION['admin']);
 	}
+	public function getUsers() {
+		return $this->db->query("SELECT * FROM user ORDER BY first, last;")->fetchAll(PDO::FETCH_ASSOC);
+	}
+	public function emulate($userID) {
+		$sth  = $this->db->prepare("SELECT * FROM user WHERE accountno=? LIMIT 1;");
+		if (
+			$sth->execute(array( $userID )) &&
+			false !== ($user = $sth->fetch(PDO::FETCH_ASSOC))
+		) {
+			unset($user['pass']);
+			$_SESSION['user'] = $user;
+			die(header('Location: ../index.php'));
+		}
+	}
 }
 
 $admin = new Admin();
 switch ( isset($_REQUEST['action']) ? $_REQUEST['action'] : null ) {
 	case 'login':  $admin->login($_POST['user'], $_POST['pass']); break;
 	case 'logout': $admin->logout(); break;
+	case 'emulate': $admin->emulate($_POST['accountno']); break;
 }
