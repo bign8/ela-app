@@ -1,13 +1,15 @@
 <?php
 
-require_once(implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'php', 'secure_pass.php' )));
+function to_path() { return realpath(implode(DIRECTORY_SEPARATOR, func_get_args())); }
+
+require_once( to_path(__DIR__, '..', 'php', 'secure_pass.php' ));
 
 class Admin {
 	private $status = array();
 
 	function __construct() {
 		session_start();
-		$this->db = new PDO('sqlite:' . implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'db.sqlite3')));
+		$this->db = new PDO('sqlite:' . to_path(__DIR__, '..', 'db.sqlite3'));
 	}
 
 	public function __get($name) {

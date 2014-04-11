@@ -1,9 +1,16 @@
 <?php
 
+$forbidden = array(
+	'error' => array(
+		'code' => 403,
+		'status' => 'Forbidden'
+	)
+);
+
 // If $_SESSION['admin'] not set...die
-require_once( implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', 'admin.class.php')) );
-if (!$admin->requiresAdmin(false)) die(header('Location: ../login.php'));
-$dsn = 'sqlite:' . implode(DIRECTORY_SEPARATOR, array(__DIR__, '..', '..', 'db.sqlite3') );
+require_once( '..' . DIRECTORY_SEPARATOR . 'admin.class.php' );
+if (!$admin->requiresAdmin(false)) exit(ArrestDB::Reply($forbidden));
+$dsn = 'sqlite:' . to_path(__DIR__, '..', '..', 'db.sqlite3');
 
 /**
 * The MIT License
