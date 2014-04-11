@@ -79,14 +79,21 @@ class Admin {
 		$this->status['rem_admin'] = $check;
 		return $check;
 	}
+	public function pw_user($accountno, $pass) {
+		$this->requiresAdmin();
+		$check = $this->db->prepare("UPDATE user SET pass=? WHERE accountno=?;")->execute(array(create_hash($pass), $accountno));
+		$this->status['pw_user'] = $check;
+		return $check;
+	}
 }
 
 $admin = new Admin();
 switch ( isset($_REQUEST['action']) ? $_REQUEST['action'] : null ) {
-	case 'login':  $admin->login($_POST['user'], $_POST['pass']); break;
-	case 'logout': $admin->logout(); break;
-	case 'emulate': $admin->emulate($_POST['accountno']); break;
-	case 'pw-admin': $admin->pw_admin($_POST['admin'], $_POST['pass']); break;
+	case 'login':     $admin->login($_POST['user'], $_POST['pass']); break;
+	case 'logout':    $admin->logout(); break;
+	case 'emulate':   $admin->emulate($_POST['accountno']); break;
+	case 'pw-admin':  $admin->pw_admin($_POST['admin'], $_POST['pass']); break;
 	case 'add-admin': $admin->add_admin($_POST['user'], $_POST['pass']); break;
 	case 'rem-admin': $admin->rem_admin($_POST['admin']); break;
+	case 'pw-user':   $admin->pw_user($_POST['accountno'], $_POST['pass']); break;
 }

@@ -58,12 +58,12 @@
 	<div class="col-md-4">
 		<div class="well">
 			<h3>
-				<a href="admins.php" class="btn pull-right btn-xs btn-info">
+				<a href="users.php" class="btn pull-right btn-xs btn-info">
 					Manage <i class="glyphicon glyphicon-edit"></i>
 				</a>
-				Admin Users
+				Users
 			</h3>
-			<p>Add, Modify, Delete Admin Users</p>
+			<p>Manage Regular and Administrative Users</p>
 		</div>
 	</div>
 	<!--
