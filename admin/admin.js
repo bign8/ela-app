@@ -1,5 +1,7 @@
 angular.module('ela-admin', [
 	'ela-event',
+	'ela-quiz',
+	'ela-quote',
 ]);
 
 // ELA Event Module (/admin/event.php)
@@ -42,6 +44,38 @@ controller('quote-edit', ['$scope', 'API', function ($scope, API) {
 	};
 }]);
 
+// ELA 
+angular.module('ela-quiz', ['ela-admin-helpers']).
+
+controller('user-quiz', ['$scope', 'API', function ($scope, API) {
+	var User = new API('user', 'accountno');
+	$scope.users = User.list;
+	$scope.view = 'tile';
+
+	$scope.show_me = function (user) {
+		alert(user.first + ' ' + user.last);
+	};
+	$scope.shuffle = function () {
+		angular.forEach($scope.users, function (value) {
+			value.random = Math.random();
+		});
+	};
+	$scope.$watch('users', $scope.random, true);
+
+	// Pagination
+	$scope.limits = [8,16,32,64,128];
+	$scope.limit = $scope.limits[0];
+	$scope.page = 1;
+}]).
+
+filter('pagination', function () {
+	return function (inputArray, selectedPage, pageSize) {
+		var start = (selectedPage-1) * pageSize;
+		return inputArray.slice(start, start + pageSize);
+	};
+});
+
+// ELA Helper Module
 angular.module('ela-admin-helpers', []).
 
 factory('API', ['$http', function ($http) { // TODO: improve with browser data cashe
