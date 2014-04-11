@@ -14,7 +14,7 @@
 			<h3>
 				<div class="pull-right">
 					<a href="event.php" class="btn btn-xs btn-info">
-						Manage <i class="glyphicon glyphicon-resize-small"></i>
+						Manage <i class="glyphicon glyphicon-edit"></i>
 					</a>
 				</div>
 				Events
@@ -53,6 +53,17 @@
 				Update System
 			</h3>
 			<p>Upload CSV for upcoming year</p>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			<h3>
+				<a href="admins.php" class="btn pull-right btn-xs btn-info">
+					Manage <i class="glyphicon glyphicon-edit"></i>
+				</a>
+				Admin Users
+			</h3>
+			<p>Add, Modify, Delete Admin Users</p>
 		</div>
 	</div>
 	<!--

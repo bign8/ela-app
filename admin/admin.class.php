@@ -42,9 +42,11 @@ class Admin {
 		unset($_SESSION['admin']);
 	}
 	public function getUsers() {
+		$this->requiresAdmin();
 		return $this->db->query("SELECT * FROM user ORDER BY first, last;")->fetchAll(PDO::FETCH_ASSOC);
 	}
 	public function emulate($userID) {
+		$this->requiresAdmin();
 		$sth  = $this->db->prepare("SELECT * FROM user WHERE accountno=? LIMIT 1;");
 		if (
 			$sth->execute(array( $userID )) &&
@@ -55,6 +57,28 @@ class Admin {
 			die(header('Location: ../index.php'));
 		}
 	}
+	public function getAdmins() {
+		$this->requiresAdmin();
+		return $this->db->query("SELECT admin, user FROM admin;")->fetchAll( PDO::FETCH_ASSOC );
+	}
+	public function pw_admin($admin, $new_pass) {
+		$this->requiresAdmin();
+		$check = $this->db->prepare("UPDATE admin SET pass=? WHERE admin=?;")->execute(array( create_hash($new_pass), $admin ));
+		$this->status['pw_admin'] = $check;
+		return $check;
+	}
+	public function add_admin($user, $pass) {
+		$this->requiresAdmin();
+		$check = $this->db->prepare("INSERT INTO admin (user,pass) VALUES (?,?);")->execute(array($user, create_hash($pass)));
+		$this->status['add_admin'] = $check;
+		return $check;
+	}
+	public function rem_admin($admin) {
+		$this->requiresAdmin();
+		$check = $this->db->prepare("DELETE FROM admin WHERE admin=?;")->execute(array($admin));
+		$this->status['rem_admin'] = $check;
+		return $check;
+	}
 }
 
 $admin = new Admin();
@@ -62,4 +86,7 @@ switch ( isset($_REQUEST['action']) ? $_REQUEST['action'] : null ) {
 	case 'login':  $admin->login($_POST['user'], $_POST['pass']); break;
 	case 'logout': $admin->logout(); break;
 	case 'emulate': $admin->emulate($_POST['accountno']); break;
+	case 'pw-admin': $admin->pw_admin($_POST['admin'], $_POST['pass']); break;
+	case 'add-admin': $admin->add_admin($_POST['user'], $_POST['pass']); break;
+	case 'rem-admin': $admin->rem_admin($_POST['admin']); break;
 }

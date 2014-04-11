@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<title>ELA Admin</title>
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 	<style>
@@ -22,6 +23,7 @@
 						<a class="navbar-brand" href=".">Admin</a>
 					</div>
 					<ul class="nav navbar-nav">
+						<li <?php echo strpos($_SERVER['PHP_SELF'],'admins')===false?'':'class="active"'; ?>><a href="admins.php">Admins</a></li>
 						<li <?php echo strpos($_SERVER['PHP_SELF'],'emulate')===false?'':'class="active"'; ?>><a href="emulate.php">Emulate</a></li>
 						<li <?php echo strpos($_SERVER['PHP_SELF'],'event')===false?'':'class="active"'; ?>><a href="event.php">Event</a></li>
 						<li <?php echo strpos($_SERVER['PHP_SELF'],'quote')===false?'':'class="active"'; ?>><a href="quote.php">Quote</a></li>
