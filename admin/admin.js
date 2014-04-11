@@ -1,8 +1,8 @@
 angular.module('ela-admin', [
-	'ela-search',
 	'ela-event',
 ]);
 
+// ELA Event Module (/admin/event.php)
 angular.module('ela-event', ['ela-admin-helpers']).
 
 controller('event-edit', ['$scope', 'API', function ($scope, API) {
@@ -26,6 +26,7 @@ controller('event-edit', ['$scope', 'API', function ($scope, API) {
 	$scope.saveEvent = Event.set.bind(Event);
 }]);
 
+// ELA Quote Module (/admin/quote.php)
 angular.module('ela-quote', ['ela-admin-helpers']).
 
 controller('quote-edit', ['$scope', 'API', function ($scope, API) {
