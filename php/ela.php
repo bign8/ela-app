@@ -38,6 +38,17 @@ class ELA {
 		$pass = $user->execute(array( $_SESSION['user']['accountno'] ));
 		$old = $user->fetch(PDO::FETCH_ASSOC);
 
+		// Validate Passwords
+		if ($pass && isset($data['pass']) && isset($data['confirm'])) {
+			if ($data['pass'] != $data['confirm']) {
+				array_push($this->status, 'save-profile-pw');
+				$pass = false;
+			} elseif ($data['pass'] != '') {
+				$sth = $this->db->prepare("UPDATE user SET pass=? WHERE accountno=?;");
+				$pass = $sth->execute(array( create_hash($data['pass']), $_SESSION['user']['accountno'] ));
+			}
+		}
+
 		// Upload photo
 		if ( $pass && isset($_FILES['image']) && !$_FILES['image']['error'] ) {
 
