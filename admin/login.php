@@ -14,7 +14,7 @@
 			<strong>Oh snap!</strong> Change a few things up and try authenticating again.
 		</div>
 	<?php endif; ?>
-	<form role="form" method="post">
+	<form role="form" method="post" action="login.php">
 		<div class="form-group">
 			<label for="user">Username</label>
 			<input autofocus type="text" class="form-control" id="user" placeholder="Username" name="user" 

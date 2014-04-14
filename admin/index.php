@@ -13,13 +13,26 @@
 		<div class="well">
 			<h3>
 				<div class="pull-right">
+					<a href="quiz.php" class="btn btn-xs btn-info">
+						Quiz <i class="glyphicon glyphicon-edit"></i>
+					</a>
+				</div>
+				Attendees Quizzer
+			</h3>
+			<p>Quiz yourself on conference attendees</p>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			<h3>
+				<div class="pull-right">
 					<a href="event.php" class="btn btn-xs btn-info">
 						Manage <i class="glyphicon glyphicon-edit"></i>
 					</a>
 				</div>
 				Events
 			</h3>
-			<p>Add and edit metadata for years and events</p>
+			<p>Add and edit meta-data for years and events</p>
 		</div>
 	</div>
 	<div class="col-md-4">

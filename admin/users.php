@@ -15,7 +15,7 @@
 	<div class="col-md-6">
 		<h2>Administrator Manager</h2>
 		<div class="well">
-			<form role="form" method="post" class="form-horizontal">
+			<form role="form" method="post" class="form-horizontal" action="users.php">
 				<fieldset>
 					<legend>Add New Administrator</legend>
 					<div class="form-group">
@@ -52,7 +52,7 @@
 								<?php echo $admin['user']; ?>
 							</td>
 							<td>
-								<form method="post">
+								<form method="post" action="users.php">
 									<input type="hidden" name="admin" value="<?php echo $admin['admin']; ?>">
 									<div class="input-group">
 										<input type="password" name="pass" placeholder="New Password" class="form-control input-sm" required>
@@ -63,7 +63,7 @@
 								</form>
 							</td>
 							<td>
-								<form method="post">
+								<form method="post" action="users.php">
 									<input type="hidden" name="admin" value="<?php echo $admin['admin']; ?>">
 									<button type="submit" name="action" value="rem-admin" class="close" aria-hidden="true">&times;</button>
 								</form>
@@ -90,7 +90,7 @@
 							</form>
 						</td>
 						<td>
-							<form method="post">
+							<form method="post" action="users.php">
 								<input type="hidden" name="accountno" value="<?php echo $user['accountno']; ?>">
 								<div class="input-group">
 									<input type="password" name="pass" placeholder="New Password" class="form-control input-sm" required>
