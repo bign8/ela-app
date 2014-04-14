@@ -84,6 +84,10 @@
 						<td>
 							<?php echo $user['first'] . ' ' . $user['last']; ?><br/>
 							<span class="text-muted"><?php echo $user['user']; ?></span>
+							<form method="post" action="users.php">
+								<input type="hidden" name="accountno" value="<?php echo $user['accountno']; ?>">
+								<input type="submit" name="action" value="emulate" class="btn btn-default btn-xs">
+							</form>
 						</td>
 						<td>
 							<form method="post">

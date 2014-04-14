@@ -25,7 +25,6 @@
 					</div>
 					<?php if ($admin->requiresAdmin(false)): ?>
 						<ul class="nav navbar-nav">
-							<li <?php echo strpos($_SERVER['PHP_SELF'],'emulate')===false?'':'class="active"'; ?>><a href="emulate.php">Emulate</a></li>
 							<li <?php echo strpos($_SERVER['PHP_SELF'],'event')===false?'':'class="active"'; ?>><a href="event.php">Event</a></li>
 							<li <?php echo strpos($_SERVER['PHP_SELF'],'quote')===false?'':'class="active"'; ?>><a href="quote.php">Quote</a></li>
 							<li <?php echo strpos($_SERVER['PHP_SELF'],'uploa')===false?'':'class="active"'; ?>><a href="uploader.php">Upload</a></li>

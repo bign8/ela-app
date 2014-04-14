@@ -36,17 +36,6 @@
 	<div class="col-md-4">
 		<div class="well">
 			<h3>
-				<a href="emulate.php" class="btn pull-right btn-xs btn-info">
-					Emulate <i class="glyphicon glyphicon-edit"></i>
-				</a>
-				Simulate Users
-			</h3>
-			<p>Login as a program attendee</p>
-		</div>
-	</div>
-	<div class="col-md-4">
-		<div class="well">
-			<h3>
 				<a href="uploader.php" class="btn pull-right btn-xs btn-info">
 					Upload <i class="glyphicon glyphicon-edit"></i>
 				</a>
