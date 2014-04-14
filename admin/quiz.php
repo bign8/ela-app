@@ -25,15 +25,24 @@
 			</a>
 		</div>
 
-		<div class="col-md-offset-2 col-md-5">
+		<div class="col-md-3">
+			<div class="input-group">
+				<label class="input-group-addon" for="myEvent">Event: </label>
+				<select class="form-control" ng-model="myEvent" id="myEvent" ng-options="e.name group by e.programYear for e in events">
+					<option value="">&mdash; all events &mdash;</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="col-md-5">
 			<div class="input-group">
 				<label class="input-group-addon" for="query">Search: </label>
 				<input type="text" id="query" class="form-control" ng-model="search_str">
 			</div>
 		</div>
 
-		<div class="hidden-xs col-md-offset-1 col-md-2">
-			<div class="input-group" ng-hide="filtered.length < 12">
+		<div class="hidden-xs col-md-2" ng-hide="filtered.length < 8">
+			<div class="input-group">
 				<span class="input-group-addon">Page Size: </span>
 				<select data-ng-model="limit" class="form-control" id="search_page" data-ng-options="x for x in limits">
 					<option value="" disabled>Per Page...</option>
@@ -43,14 +52,31 @@
 	</div>
 
 	<div data-ng-switch="view">
-		<div data-ng-switch-when="tile" class="row">
-			<span class="col-md-3" data-ng-repeat="user in (filtered = (users | filter:search_str)) | orderBy:'random' | pagination:page:limit">
-				<div class="thumbnail" data-ng-click="show_me(user)">
-					<img data-ng-src="../img/full/{{user.last}}, {{user.first}}.jpg" class="img-rounded" height="100" 
-						data-ng-attr-title="{{user.first}} {{user.last}}"
-						data-ng-attr-alt="{{user.first}} {{user.last}}" alt="John Doe" />
-				</div>
-			</span>
+		<div data-ng-switch-when="tile">
+			<div class="row">
+				<span class="col-md-3" data-ng-repeat="user in (filtered_users = (users | filter:search_str)) | orderBy:'random' | pagination:page:limit">
+					<div class="thumbnail" data-ng-click="show_me(user)">
+						<img data-ng-src="../img/full/{{user.last}}, {{user.first}}.jpg" class="img-rounded" height="100" 
+							data-ng-attr-title="{{user.first}} {{user.last}}"
+							data-ng-attr-alt="{{user.first}} {{user.last}}" alt="John Doe" />
+					</div>
+				</span>
+			</div>
+			<div class="text-center clearfix" data-ng-show="num_pages !== 1"><!-- pager -->
+				<span 
+					data-pagination
+					data-total-items="filtered_users.length"
+					data-items-per-page="limit"
+					data-page="page"
+					data-max-size="5"
+					data-boundary-links="true"
+					data-previous-text="&lsaquo;"
+					data-next-text="&rsaquo;"
+					data-first-text="&laquo;"
+					data-last-text="&raquo;"
+					data-num-pages="num_pages">
+				</span>
+			</div>
 		</div>
 		<div data-ng-switch-when="list">
 			<table class="table" data-ng-cloak>
@@ -64,7 +90,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr data-ng-repeat="user in (filtered = (users | filter:search_str)) | pagination:page:limit"
+					<tr data-ng-repeat="user in (filtered_users = (users | filter:search_str)) | pagination:page:limit"
 						data-ng-click="view(user)" >
 						<td>
 							<div class="center-cropped pull-left img-rounded">
@@ -91,9 +117,23 @@
 					</tr>
 				</tbody>
 			</table>
+			<div class="text-center" data-ng-show="num_pages !== 1"><!-- pager -->
+				<span 
+					data-pagination
+					data-total-items="filtered_users.length"
+					data-items-per-page="limit"
+					data-page="page"
+					data-max-size="5"
+					data-boundary-links="true"
+					data-previous-text="&lsaquo;"
+					data-next-text="&rsaquo;"
+					data-first-text="&laquo;"
+					data-last-text="&raquo;"
+					data-num-pages="num_pages">
+				</span>
+			</div>
 		</div>
 	</div>
-	<!-- <pre>{{users | json}}</pre> -->
 </div>
 
 <?php include('tpl' . DIRECTORY_SEPARATOR . 'footer.tpl.html'); ?>

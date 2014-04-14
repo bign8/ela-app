@@ -45,13 +45,35 @@ controller('quote-edit', ['$scope', 'API', function ($scope, API) {
 }]);
 
 // ELA 
-angular.module('ela-quiz', ['ela-admin-helpers']).
+angular.module('ela-quiz', ['ela-admin-helpers', 'ui.bootstrap']).
 
-controller('user-quiz', ['$scope', 'API', function ($scope, API) {
+controller('user-quiz', ['$scope', 'API', '$http', function ($scope, API, $http) {
+
+	// Initial (load all users)
 	var User = new API('user', 'accountno');
 	$scope.users = User.list;
 	$scope.view = 'tile';
 
+	// Load events
+	$scope.events = [];
+	$http.get('../api/quiz/').then(function (res) {
+		$scope.events = res.data.data;
+	});
+
+	// Load users as desired
+	$scope.$watch('myEvent', function (value) {
+		if (!value || !value.eventID) {
+			$scope.users = User.list;
+			$scope.shuffle();
+		} else {
+			$http.get('../api/quiz/' + value.eventID).then(function (res) {
+				$scope.users = res.data.data;
+				$scope.shuffle();
+			});
+		}
+	});
+
+	// Controls
 	$scope.show_me = function (user) {
 		alert(user.first + ' ' + user.last);
 	};
@@ -60,7 +82,6 @@ controller('user-quiz', ['$scope', 'API', function ($scope, API) {
 			value.random = Math.random();
 		});
 	};
-	$scope.$watch('users', $scope.random, true);
 
 	// Pagination
 	$scope.limits = [8,16,32,64,128];
