@@ -28,6 +28,26 @@ switch ( isset($_REQUEST['action']) ? $_REQUEST['action'] : 'none' ) {
 		if ($result) die(header('Location: index.php#profile')); // lose post request
 		array_push($app->status, 'profile-error');
 		break;
+
+	case 'send_reset':
+		$status = $app->send_reset( $_POST['user'] );
+		array_push($app->status, $status ? 'reset-success' : 'reset-error');
+		break;
+
+	case 'pass_reset':
+		try {
+			$app->pass_reset( $_POST['pass'], $_POST['confirm'], $_REQUEST['hash'] );
+			array_push($app->status, 'reset-success');
+		} catch (Exception $e) {
+			switch ($e->getMessage()) {
+				case ELA::RESET_MISSMATCH: array_push($app->status, 'reset-missmatch'); break;
+				case ELA::RESET_BAD_HASH: array_push($app->status, 'reset-bad-hash'); break;
+				case ELA::RESET_SHORT: array_push($app->status, 'reset-short'); break;
+				case ELA::DB_ERROR: array_push($app->status, 'reset-error'); break;
+				default: throw $e; break;
+			}
+		}
+		break;
 }
 
 // For perfect striped frames
@@ -38,3 +58,5 @@ $ela_include = function($path) use ($app, &$dumb_counter) {
 	echo "</div>";
 	$dumb_counter %= 2;
 };
+
+$auth = isset( $_SESSION['user'] );

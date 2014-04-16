@@ -15,6 +15,18 @@
 							Change a few things up and try authenticating again.
 						</div>
 					<?php endif; ?>
+					<?php if (in_array('reset-error', $app->status)): ?>
+						<div class="alert alert-danger">
+							<h4>Who are you?</h4> 
+							We cannot find you in our system.
+						</div>
+					<?php endif; ?>
+					<?php if (in_array('reset-success', $app->status)): ?>
+						<div class="alert alert-success">
+							<h4>Password Reset</h4> 
+							Please check your email for a message from us describing the rest of the reset process.
+						</div>
+					<?php endif; ?>
 					<div class="form-group">
 						<label for="inputUser">Email address or ELA user-name</label>
 						<input type="text" class="form-control" id="inputUser" placeholder="Enter email" name="user" 
@@ -26,10 +38,11 @@
 							value="<?php if (isset($_REQUEST['pass'])) echo $_REQUEST['pass']; ?>">
 					</div>
 					<button type="submit" class="btn btn-primary" name="action" value="login">Login</button>
+					<button type="submit" class="btn btn-warning pull-right" name="action" value="send_reset">Reset</buton>
 				</form>
 			</div>
 			<p>
-				In feugiat tincidunt tortor. Quisque cursus purus a justo egestas, id consectetur tellus vulputate. Quisque sed blandit nulla. Nunc fringilla quis lacus eget hendrerit. Etiam tincidunt metus at nisl scelerisque dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus vestibulum mauris lacus, nec accumsan lectus adipiscing nec. Vestibulum convallis suscipit lectus vitae eleifend. Proin luctus pulvinar mi et elementum. Pellentesque luctus, metus quis elementum dictum, leo lorem posuere odio, vel accumsan tellus odio at risus. Proin tempus imperdiet quam nec vestibulum.
+				<strong>Forgot your password:</strong> Provide your user-name or email and we will send you password reset instructions.
 			</p>
 		</div>
 		<div class="col-sm-3 col-sm-offset-1 hidden-xs">

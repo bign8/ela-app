@@ -1,0 +1,43 @@
+<div class="container" id="reset">
+	<div class="page-header">
+		<h1>Reset Password</h1>
+	</div>
+	<p class="lead">
+		<?php print_r($_REQUEST); ?>
+	</p>
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-1">
+			<div class="well">
+				<form role="form" action="reset.php" method="post">
+					<?php if (in_array('reset-missmatch', $app->status)): ?>
+						<div class="alert alert-danger">
+							<strong>Passwords must match</strong> 
+							Please try typing your passwords again.
+						</div>
+					<?php endif; ?>
+					<?php if (in_array('reset-error', $app->status)): ?>
+						<div class="alert alert-danger">
+							<strong>Invalid Credentials</strong> 
+							Change a few things up and try authenticating again.
+						</div>
+					<?php endif; ?>
+					<div class="form-group">
+						<label for="inputPassword">New Password</label>
+						<input type="password" class="form-control" id="inputPassword" placeholder="New Password" name="pass"
+							value="<?php if (isset($_REQUEST['pass'])) echo $_REQUEST['pass']; ?>">
+					</div>
+					<div class="form-group">
+						<label for="inputPassword">Confirm Password</label>
+						<input type="password" class="form-control" id="inputPassword" placeholder="Confirm Password" name="confirm"
+							value="<?php if (isset($_REQUEST['confirm'])) echo $_REQUEST['confirm']; ?>">
+					</div>
+					<input type="hidden" name="hash" value="<?php echo $_REQUEST['hash']; ?>">
+					<button type="submit" class="btn btn-primary" name="action" value="pass_reset">Reset</button>
+				</form>
+			</div>
+		</div>
+		<div class="col-sm-3 col-sm-offset-1 hidden-xs">
+			<img class="img-responsive img-rounded" src="data/img/buiz6.jpg" alt="Business">
+		</div>
+	</div>
+</div>

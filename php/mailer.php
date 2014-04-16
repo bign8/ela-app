@@ -28,4 +28,15 @@ class Mailer extends PHPMailer {
 		$this->msgHTML($html);
 		return $this->send();
 	}
+
+	public function sendMsg($subject, $html, $to, $name = '') {
+
+		// Add Custom Footer to messages
+		// $html .= file_get_contents(__DIR__ . '/foot.html');
+
+		$this->addAddress($to, $name);
+		$this->Subject = $subject;
+		$this->msgHTML($html);
+		return $this->send();
+	}
 }
