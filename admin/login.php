@@ -1,7 +1,7 @@
 <?php
 	require_once('admin.class.php');
-	include('tpl' . DIRECTORY_SEPARATOR . 'header.tpl.html');
 	if ($admin->login_status) die(header('Location: index.php'));
+	include('tpl' . DIRECTORY_SEPARATOR . 'header.tpl.html');
 ?>
 
 <div class="page-header clearfix">
