@@ -8,7 +8,7 @@ class Admin {
 	private $status = array();
 
 	function __construct() {
-		session_start();
+		if (session_id() == '') session_start();
 		$this->db = new PDO('sqlite:' . to_path(__DIR__, '..', 'db.sqlite3'));
 	}
 

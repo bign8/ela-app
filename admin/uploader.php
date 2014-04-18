@@ -14,6 +14,7 @@ class UPLOADER {
 		$_SESSION['hash'] = uniqid();
 		$data = str_replace('{{MSG}}', $msg, $data);
 
+		$admin = new Admin();
 		include('tpl' . DIRECTORY_SEPARATOR . 'header.tpl.html');
 		echo str_replace('{{HASH_VALUE}}', $_SESSION['hash'], $data);
 		include('tpl' . DIRECTORY_SEPARATOR . 'footer.tpl.html');

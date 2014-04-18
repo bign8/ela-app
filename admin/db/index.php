@@ -432,9 +432,9 @@ class ArrestDB {
 
 		if ((empty($on) === true) || (strcasecmp($_SERVER['REQUEST_METHOD'], $on) === 0)) {
 			if (is_null($root) === true) {
-				$root = preg_replace('~/++~', '/', substr($_SERVER['PHP_SELF'], strlen($_SERVER['SCRIPT_NAME'])) . '/');
+				$root = $_SERVER['QUERY_STRING'];
+				if (substr($root, -1) != '/') $root .= '/';
 			}
-
 			if (preg_match('~^' . str_replace(array('#any', '#num'), array('[^/]++', '[0-9]++'), $route) . '~i', $root, $parts) > 0) {
 				return (empty($callback) === true) ? true : exit(call_user_func_array($callback, array_slice($parts, 1)));
 			}

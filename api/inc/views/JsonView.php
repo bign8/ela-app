@@ -14,6 +14,6 @@ class JsonView extends ApiView {
 
 	// Builds output, can be used by JSON and JSONP
 	protected function build($content) {
-		return json_encode($content, JSON_NUMERIC_CHECK | JSON_PRETTY_PRINT);
+		return json_encode($content, JSON_NUMERIC_CHECK);
 	}
 }
