@@ -60,16 +60,17 @@ class ELA {
 
 			// Verify appropriate mime types
 			if (false === $ext = array_search($_FILES['image']["type"], array(
-				'gif' => "image/gif",
-				'jpg' => "image/jpeg",
-				'jpg' => "image/jpg",
-				'jpg' => "image/pjpeg",
-				'png' => "image/x-png",
-				'png' => "image/png"
+				'gif0' => "image/gif",
+				'jpg1' => "image/jpeg",
+				'jpg2' => "image/jpg",
+				'jpg3' => "image/pjpeg",
+				'png4' => "image/x-png",
+				'png5' => "image/png"
 			))) {
 				$pass = false;
 				array_push($this->status, 'image-type-error');
 			} else {
+				$ext = subster($ext, 0, -1);
 				$mail->addAttachment($_FILES['image']['tmp_name'], $data['last'].'-'.$data['first'].'.'.$ext);
 			}
 		}
@@ -152,5 +153,8 @@ class ELA {
 		$ret = $this->db->query("SELECT * FROM quote ORDER BY RANDOM() LIMIT 1;")->fetch( PDO::FETCH_ASSOC );
 		if ( is_null($ret['author']) ) $ret['author'] = 'Anonymous';
 		return $ret;
+	}
+	public function get_faq() {
+		return $this->db->query("SELECT * FROM faq ORDER BY title;")->fetchAll( PDO::FETCH_ASSOC );
 	}
 }

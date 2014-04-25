@@ -19,17 +19,9 @@
 
 		<?php $ela_include('tpl/home.frame.html'); ?>
 
-		<?php $ela_include('tpl/about.frame.html'); ?>
-
 		<?php $ela_include('tpl/faq.frame.html'); ?>
 
 		<?php if ($auth) $ela_include('tpl/search.frame.html'); ?>
-
-		<?php $ela_include('tpl/samples.frame.html'); ?>
-
-		<?php $ela_include('tpl/hints.frame.html'); ?>
-
-		<?php $ela_include('tpl/desc.frame.html'); ?>
 
 		<?php if (!$auth) $ela_include('tpl/login.frame.html'); ?>
 
@@ -44,7 +36,7 @@
 		<div class="container">
 			<p class="pull-right social">
 				<a href="http://www.linkedin.com/groups?gid=4403897" target="blank">
-					<i class="fa fa-linkedin-square text-muted"></i>
+					<i class="fa fa-linkedin-square text-muted" style="color:#0077B5"></i>
 				</a>
 			</p>
 			<p class="text-muted credit">
