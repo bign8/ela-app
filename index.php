@@ -16,20 +16,12 @@
 
 	<div id="wrap" data-ng-app="ela">
 		<?php if ($auth) $ela_include('tpl/meet.frame.html'); ?>
-
 		<?php $ela_include('tpl/home.frame.html'); ?>
-
-		<?php $ela_include('tpl/faq.frame.html'); ?>
-
-		<?php if ($auth) $ela_include('tpl/search.frame.html'); ?>
-
 		<?php if (!$auth) $ela_include('tpl/login.frame.html'); ?>
-
+		<?php $ela_include('tpl/faq.frame.html'); ?>
+		<?php if ($auth) $ela_include('tpl/search.frame.html'); ?>
 		<?php if ($auth) $ela_include('tpl/myELA.frame.html'); ?>
-
 		<?php if ($auth) $ela_include('tpl/profile.frame.html'); ?>
-
-		<div style="min-height:60px;height:60px"></div><!-- same as a push -->
 	</div><!-- ./wrap -->
 
 	<div id="footer" class="navbar navbar-default navbar-fixed-bottom">
