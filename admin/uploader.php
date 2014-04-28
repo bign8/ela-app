@@ -72,8 +72,8 @@ class PROCESSOR {
 
 		// Setup queries
 		$uGetSTH = $this->db->prepare("SELECT accountno FROM user WHERE accountno=?;");
-		$uAddSTH = $this->db->prepare("INSERT INTO user (first,last,company,title,city,state,bio,gradyear,phone,email,user,pass,accountno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);");
-		$uModSTH = $this->db->prepare("UPDATE \"user\" SET first=?,last=?,company=?,title=?,city=?,state=?,bio=?,gradyear=?,phone=?,email=?,\"user\"=? WHERE accountno=?;");
+		$uAddSTH = $this->db->prepare("INSERT INTO user (first,last,company,title,city,state,bio,gradyear,phone,email,user,img,accountno,pass) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);");
+		$uModSTH = $this->db->prepare("UPDATE user SET first=?,last=?,company=?,title=?,city=?,state=?,bio=?,gradyear=?,phone=?,email=?,\"user\"=?,img=? WHERE accountno=?;");
 		$eGetSTH = $this->db->prepare("SELECT eventID FROM event WHERE name=? AND programYearID=?;");
 		$eAddSTH = $this->db->prepare("INSERT INTO event (name, programYearID) VALUES (?,?);");
 
@@ -86,48 +86,34 @@ class PROCESSOR {
 			$data = array_map('trim', $data);
 
 			// Insert user
+			$user_data = array(
+				$data[ $this->titles['first'] ],
+				$data[ $this->titles['last'] ],
+				$data[ $this->titles['company'] ],
+				$data[ $this->titles['title'] ],
+				$data[ $this->titles['city'] ],
+				$data[ $this->titles['state'] ],
+				iconv("SHIFT_JIS", "UTF-8", $data[ $this->titles['bio'] ]), // microsoft :( http://i-tools.org/charset
+				$data[ $this->titles['program'] ], // no grad-year yet
+				$data[ $this->titles['phone1'] ],
+				$data[ $this->titles['contsupref'] ], // email
+				$data[ $this->titles['username'] ],
+				$data[ $this->titles['photo link'] ],
+				$data[ $this->titles['accountno'] ]
+			);
 			if (
 				!$uGetSTH->execute(array( $data[ $this->titles['accountno'] ] )) ||
 				$uGetSTH->fetchColumn() === FALSE
 			) {
-				$user_data = array(
-					$data[ $this->titles['first'] ],
-					$data[ $this->titles['last'] ],
-					$data[ $this->titles['company'] ],
-					$data[ $this->titles['title'] ],
-					$data[ $this->titles['city'] ],
-					$data[ $this->titles['state'] ],
-					iconv("SHIFT_JIS", "UTF-8", $data[ $this->titles['bio'] ]), // microsoft :( http://i-tools.org/charset
-					'????', // $data[ $this->titles['gradyear'] ], // no grad-year yet
-					$data[ $this->titles['phone1'] ],
-					$data[ $this->titles['contsupref'] ], // email
-					$data[ $this->titles['username'] ],
-					create_hash($data[ $this->titles['password'] ]),
-					$data[ $this->titles['accountno'] ]
-				);
+				array_push($user_data, create_hash($data[ $this->titles['password'] ]));
 				$uAddSTH->execute( $user_data );
 			} else {
-				$user_data = array(
-					$data[ $this->titles['first'] ],
-					$data[ $this->titles['last'] ],
-					$data[ $this->titles['company'] ],
-					$data[ $this->titles['title'] ],
-					$data[ $this->titles['city'] ],
-					$data[ $this->titles['state'] ],
-					iconv("SHIFT_JIS", "UTF-8", $data[ $this->titles['bio'] ]), // microsoft :( http://i-tools.org/charset
-					'????', // $data[ $this->titles['gradyear'] ], // no grad-year yet
-					$data[ $this->titles['phone1'] ],
-					$data[ $this->titles['contsupref'] ], // email
-					$data[ $this->titles['username'] ],
-					$data[ $this->titles['accountno'] ]
-				);
 				$uModSTH->execute( $user_data );
 			}
 
 			// Add events  and attendees for each user
 			foreach ($col_to_db_map as $key => $value) {
 				// echo $data[ $key ] . ' ' . print_r($value, true);
-
 
 				// Should we insert event?
 				$eventID = false;
@@ -297,7 +283,7 @@ __halt_compiler() ?>
 				<code>bio</code> The biography of the participant
 			</li>
 			<li>
-				<code>gradyear</code> The graduation year of the participant
+				<code>program</code> The graduation year of the participant
 			</li>
 			<li>
 				<code>phone1</code> The phone number of the participant
