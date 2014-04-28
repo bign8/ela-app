@@ -63,7 +63,6 @@ class PROCESSOR {
 	function __construct($upload_name = null) {
 		$this->upload_name = $upload_name;
 		$this->db = new PDO('sqlite:..' . DIRECTORY_SEPARATOR . 'db.sqlite3');
-		$this->db->exec("set names utf8");
 		if ( ($this->handle = fopen($upload_name, 'r')) === FALSE ) die('cannot open stream');
 	}
 
@@ -72,14 +71,15 @@ class PROCESSOR {
 
 		// Setup queries
 		$uGetSTH = $this->db->prepare("SELECT accountno FROM user WHERE accountno=?;");
-		$uAddSTH = $this->db->prepare("INSERT INTO user (first,last,company,title,city,state,bio,gradyear,phone,email,user,img,accountno,pass) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);");
-		$uModSTH = $this->db->prepare("UPDATE user SET first=?,last=?,company=?,title=?,city=?,state=?,bio=?,gradyear=?,phone=?,email=?,\"user\"=?,img=? WHERE accountno=?;");
+		$uAddSTH = $this->db->prepare("INSERT INTO user (first,last,company,title,city,state,bio,gradyear,phone,email,\"user\",img,accountno,pass) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+		$uModSTH = $this->db->prepare("UPDATE \"user\" SET first=?,last=?,company=?,title=?,city=?,state=?,bio=?,gradyear=?,phone=?,email=?,\"user\"=?,img=? WHERE accountno=?;");
 		$eGetSTH = $this->db->prepare("SELECT eventID FROM event WHERE name=? AND programYearID=?;");
 		$eAddSTH = $this->db->prepare("INSERT INTO event (name, programYearID) VALUES (?,?);");
 
 		$aGetSTH = $this->db->prepare("SELECT attendeeID FROM attendee WHERE userID=? AND yearID=?;");
 		$aAddSTH = $this->db->prepare("INSERT INTO attendee (userID, eventID, yearID) vALUES (?,?,?);");
 		$aModSTH = $this->db->prepare("UPDATE attendee SET eventID=? WHERE attendeeID=?;");
+
 
 		// process rows
 		while (($data = fgetcsv($this->handle, 1000, ",")) !== FALSE) {
@@ -111,7 +111,7 @@ class PROCESSOR {
 				$uModSTH->execute( $user_data );
 			}
 
-			// Add events  and attendees for each user
+			// Add events and attendees for each user
 			foreach ($col_to_db_map as $key => $value) {
 				// echo $data[ $key ] . ' ' . print_r($value, true);
 
@@ -167,6 +167,7 @@ class PROCESSOR {
 		$programYearIDs = array();
 		$getSTH = $this->db->prepare("SELECT programYearID FROM programYear WHERE programYear=?;");
 		$addSTH = $this->db->prepare("INSERT INTO programYear (programYear) VALUES (?);");
+
 		foreach ($event_titles as $key => $value) {
 			$temp_arr = array( $value );
 
@@ -296,6 +297,9 @@ __halt_compiler() ?>
 			</li>
 			<li>
 				<code>password</code> The password of the participant (unencrypted)
+			</li>
+			<li>
+				<code>photo link</code> The name of the photo of the user.  Located in <code>http://upstreamacademy.com/images/ELAApp/...</code>
 			</li>
 			<li>
 				<code>event 14-15</code> At least one event (usually 3) that presents the year span in <code>[0-9]{2}-[0-9]{2}</code> format

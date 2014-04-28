@@ -146,9 +146,6 @@ class ELA {
 		$sth->execute(array( $_SESSION['user']['accountno'] ));
 		return $sth->fetch( PDO::FETCH_ASSOC );
 	}
-	public function get_image( $user ) {
-		return $user['last'] . ',%20' . $user['first'] . '.jpg';
-	}
 	public function random_quote() {
 		$ret = $this->db->query("SELECT * FROM quote ORDER BY RANDOM() LIMIT 1;")->fetch( PDO::FETCH_ASSOC );
 		if ( is_null($ret['author']) ) $ret['author'] = 'Anonymous';
