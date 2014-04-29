@@ -18,7 +18,7 @@ $request = new Request();
 
 // Dumb authentication
 session_start();
-if (!isset($_SESSION['user'])) throw new Exception('Authentication Required', 401);
+if (!isset($_SESSION['user']) && !isset($_SESSION['admin'])) throw new Exception('Authentication Required', 401);
 
 // Process request
 $controller_name = ucfirst( $request->getUrlElement(0) ) . 'Controller';

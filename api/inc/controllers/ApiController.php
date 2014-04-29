@@ -7,7 +7,12 @@ abstract class ApiController {
 	public function __construct(Request $req, $db) {
 		$this->request = $req;
 		$this->db = $db;
-		$this->user = (object) $_SESSION['user'];
+
+		if (isset($_SESSION['user']) && $_SESSION['user'] != null) {
+			$this->user = (object) $_SESSION['user'];
+		} elseif (isset($_SESSION['admin'])) {
+			$this->user = (object) $_SESSION['admin'];
+		}
 		// validate session?
 	}
 }
