@@ -5,10 +5,16 @@
 
 <div class="container" id="myela">
 	<div class="page-header">
-		<h1>My ELA <small><?php echo $_SESSION['user']['first'] . ' ' . $_SESSION['user']['last']; ?></small></h1>
+		<h1>
+			My ELA 
+			<small>
+				<?php echo $_SESSION['user']['first'] . ' ' . $_SESSION['user']['last']; ?> 
+				<em>(guided by <?php echo isset($_SESSION['user']['guide']) ? $_SESSION['user']['guide'] : 'unknown'; ?>)</em>
+			</small>
+		</h1>
 	</div>
 	<p class="lead">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac eleifend nisl. Mauris vitae tincidunt turpis, quis facilisis orci. Maecenas elementum sapien vitae libero semper commodo. Quisque tincidunt, dui vitae laoreet sollicitudin, sem tellus interdum odio, eu ornare tellus tellus ac tortor. Nulla laoreet urna ligula, ut ultrices dui ultricies et. Proin in viverra tellus. Duis vel sem quis neque molestie vehicula id eu mauris. Mauris eleifend ut est at luctus. Sed nec ligula a lectus ultricies bibendum viverra vitae ante. Suspendisse fringilla turpis nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum nisl urna, non dictum dolor facilisis eu.
+		In this section, you will find information about the conference you chose, a link to the current calendar, the guide name we have on file, and a PDF copy of the ELA workbook.  If you need to change your conference or guide selection, please contact us at <a href="info@upstreamacademy.com">info@upstreamacademy.com</a>.  Please remember to enter information on your goals and your project in the <a href="http://ela.upstreamacademy.com/">OPT System</a>.
 	</p>
 	<div class="row">
 		<?php foreach ($conferences as $conference): ?>
@@ -38,7 +44,4 @@
 			</div>
 		<?php endforeach; ?>
 	</div>
-	<p>
-		In feugiat tincidunt tortor. Quisque cursus purus a justo egestas, id consectetur tellus vulputate. Quisque sed blandit nulla. Nunc fringilla quis lacus eget hendrerit. Etiam tincidunt metus at nisl scelerisque dapibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus vestibulum mauris lacus, nec accumsan lectus adipiscing nec. Vestibulum convallis suscipit lectus vitae eleifend. Proin luctus pulvinar mi et elementum. Pellentesque luctus, metus quis elementum dictum, leo lorem posuere odio, vel accumsan tellus odio at risus. Proin tempus imperdiet quam nec vestibulum.
-	</p>
 </div>
