@@ -28,7 +28,9 @@
 		<div class="col-md-3">
 			<div class="input-group">
 				<label class="input-group-addon" for="myEvent">Event: </label>
-				<select class="form-control" ng-model="myEvent" id="myEvent" ng-options="e.name group by e.programYear for e in events">
+				<select class="form-control" ng-model="myEvent" id="myEvent" 
+					ng-options="e.name group by e.programYear for e in events | orderBy:['-programYear','name']"
+				>
 					<option value="">&mdash; all events &mdash;</option>
 				</select>
 			</div>
