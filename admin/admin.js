@@ -26,6 +26,7 @@ controller('event-edit', ['$scope', 'API', function ($scope, API) {
 	// API Save Calls
 	$scope.saveYear = Year.set.bind(Year);
 	$scope.saveEvent = Event.set.bind(Event);
+	$scope.remEvent = Event.rem.bind(Event);
 }]);
 
 // ELA Quote Module (/admin/quote.php)

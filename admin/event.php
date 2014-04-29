@@ -48,6 +48,7 @@
 					<th class="col-xs-3">Name</th>
 					<th class="col-xs-4">Date</th>
 					<th class="col-xs-5">Link</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -55,6 +56,7 @@
 					<td>{{ event.name }}</td>
 					<td data-col-editor data-col-field="event.date" data-save-cb="saveEvent(event)">-</td>
 					<td data-col-editor data-col-field="event.link" data-save-cb="saveEvent(event)">-</td>
+					<td><button type="button" class="close" aria-hidden="true" data-ng-click="remEvent(event)">&times;</button></td>
 				</tr>
 			</tbody>
 		</table>
