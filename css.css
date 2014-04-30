@@ -83,7 +83,6 @@ textarea.text-auto-scale {
 	resize: none;
 }
 
-
 .img-loader {
 	position: relative;
 }
@@ -97,3 +96,5 @@ textarea.text-auto-scale {
 	margin: -7px -64px;
 	display: none;
 }
+
+.table-hover > tbody > tr { cursor: pointer; }
