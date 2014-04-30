@@ -38,6 +38,19 @@
 	<div class="col-md-4">
 		<div class="well">
 			<h3>
+				<div class="pull-right">
+					<a href="faq.php" class="btn btn-xs btn-info">
+						Manage <i class="glyphicon glyphicon-edit"></i>
+					</a>
+				</div>
+				FAQ
+			</h3>
+			<p>Add and edit site FAQs</p>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			<h3>
 				<a href="quote.php" class="btn pull-right btn-xs btn-info">
 					Manage <i class="glyphicon glyphicon-edit"></i>
 				</a>

@@ -1,5 +1,6 @@
 angular.module('ela-admin', [
 	'ela-event',
+	'ela-faq',
 	'ela-quiz',
 	'ela-quote',
 ]);
@@ -16,11 +17,11 @@ controller('event-edit', ['$scope', 'API', function ($scope, API) {
 	$scope.prgmYears = PrgmYear.list;
 
 	// Years
-	var Year = new API('year', 'yearID');
+	var Year = new API('year');
 	$scope.years = Year.list;
 
 	// Events
-	var Event = new API('event', 'eventID');
+	var Event = new API('event');
 	$scope.events = Event.list;
 
 	// API Save Calls
@@ -33,7 +34,7 @@ controller('event-edit', ['$scope', 'API', function ($scope, API) {
 angular.module('ela-quote', ['ela-admin-helpers']).
 
 controller('quote-edit', ['$scope', 'API', function ($scope, API) {
-	var Quote = new API('quote', 'quoteID');
+	var Quote = new API('quote');
 	$scope.quotes = Quote.list;
 
 	// API Calls
@@ -45,7 +46,23 @@ controller('quote-edit', ['$scope', 'API', function ($scope, API) {
 	};
 }]);
 
-// ELA 
+// ELA FAQ (/admin/faq.php)
+angular.module('ela-faq', ['ela-admin-helpers']).
+
+controller('faq-edit', ['$scope', 'API', function ($scope, API) {
+	var FAQ = new API('faq');
+	$scope.faqs = FAQ.list;
+
+	// API Calls
+	$scope.set_item = FAQ.set.bind(FAQ);
+	$scope.rem_item = FAQ.rem.bind(FAQ);
+	$scope.add_item = function (item) {
+		FAQ.add($scope[item]);
+		$scope[item] = {};
+	}
+}]);
+
+// ELA Quiz (/admin/quiz.php)
 angular.module('ela-quiz', ['ela-admin-helpers', 'ui.bootstrap']).
 
 controller('user-quiz', ['$scope', 'API', '$http', function ($scope, API, $http) {
@@ -59,6 +76,7 @@ controller('user-quiz', ['$scope', 'API', '$http', function ($scope, API, $http)
 	$scope.events = [];
 	$http.get('../api/quiz/').then(function (res) {
 		$scope.events = res.data.data;
+		$scope.shuffle();
 	});
 
 	// Load users as desired
@@ -88,46 +106,44 @@ controller('user-quiz', ['$scope', 'API', '$http', function ($scope, API, $http)
 	$scope.limits = [8,16,32,64,128];
 	$scope.limit = $scope.limits[0];
 	$scope.page = 1;
-}]).
-
-filter('pagination', function () {
-	return function (inputArray, selectedPage, pageSize) {
-		var start = (selectedPage-1) * pageSize;
-		return inputArray.slice(start, start + pageSize);
-	};
-});
+}]);
 
 // ELA Helper Module
 angular.module('ela-admin-helpers', []).
 
 factory('API', ['$http', function ($http) { // TODO: improve with browser data cashe
-	var cleanup = function (result) { return result.data; };
+	var cleanup = function (result) { clear_new.call(this); return result.data; };
 	var rem_obj = function (item) { this.list.splice(this.list.indexOf(item), 1); };
+	var clear_new = function() {
+		var len = (this.list || []).length;
+		for (var i = 0; i < len; i++) this.list[i].is_new = false;
+	};
 	var add_obj = function (item, data) {
+		item.is_new = true;
 		item[ this.id ] = data.success.data;
 		this.list.unshift(item);
 	};
 	var service = function(table, identifier, cb) {
 		this.list = [];
-		this.base = table;
-		this.id = identifier;
+		this.table = table;
+		this.id = identifier || (table + 'ID'); // standard convention (tablename + ID, ie: faq = faqID)
 		this.all().then(angular.extend.bind(undefined, this.list)).then(cb);
 	};
 	service.prototype = {
 		all: function () {
-			return $http.get('db/' + this.base).then( cleanup );
+			return $http.get('db/' + this.table).then( cleanup.bind(this) );
 		},
 		get: function (itemID) {
-			return $http.get('db/' + this.base + '/' + itemID).then( cleanup );
+			return $http.get('db/' + this.table + '/' + itemID).then( cleanup.bind(this) );
 		},
 		set: function (item) {
-			return $http.put('db/' + this.base + '/' + item[ this.id ], item).then( cleanup );
+			return $http.put('db/' + this.table + '/' + item[ this.id ], item).then( cleanup.bind(this) );
 		},
 		rem: function (item) {
-			return $http.delete('db/' + this.base + '/' + item[ this.id ]).then( cleanup ).then(rem_obj.bind(this, item));
+			return $http.delete('db/' + this.table + '/' + item[ this.id ]).then( cleanup.bind(this) ).then(rem_obj.bind(this, item));
 		},
 		add: function (item) {
-			return $http.post('db/' + this.base, item).then( cleanup ).then(add_obj.bind(this, item));
+			return $http.post('db/' + this.table, item).then( cleanup.bind(this) ).then(add_obj.bind(this, item));
 		}
 	};
 	return service;
@@ -178,4 +194,11 @@ directive('editFocus', ['$timeout', function ($timeout) {
 			}, 0, false);
 		});
 	};
-}]);
+}]).
+
+filter('pagination', function () {
+	return function (inputArray, selectedPage, pageSize) {
+		var start = (selectedPage-1) * pageSize;
+		return inputArray.slice(start, start + pageSize);
+	};
+});

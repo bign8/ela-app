@@ -26,10 +26,11 @@
 					<?php if ($admin->requiresAdmin(false)): ?>
 						<ul class="nav navbar-nav">
 							<li <?php echo strpos($_SERVER['PHP_SELF'],'event')===false?'':'class="active"'; ?>><a href="event.php">Event</a></li>
+							<li <?php echo strpos($_SERVER['PHP_SELF'],'faq')===false?'':'class="active"'; ?>><a href="faq.php">FAQ</a></li>
+							<li <?php echo strpos($_SERVER['PHP_SELF'],'quiz')===false?'':'class="active"'; ?>><a href="quiz.php">User Quizzer</a></li>
 							<li <?php echo strpos($_SERVER['PHP_SELF'],'quote')===false?'':'class="active"'; ?>><a href="quote.php">Quote</a></li>
 							<li <?php echo strpos($_SERVER['PHP_SELF'],'uploa')===false?'':'class="active"'; ?>><a href="uploader.php">Upload</a></li>
 							<li <?php echo strpos($_SERVER['PHP_SELF'],'users')===false?'':'class="active"'; ?>><a href="users.php">Users</a></li>
-							<li <?php echo strpos($_SERVER['PHP_SELF'],'quiz')===false?'':'class="active"'; ?>><a href="quiz.php">User Quizzer</a></li>
 						</ul>
 					<?php endif; ?>
 

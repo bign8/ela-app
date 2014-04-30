@@ -92,7 +92,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr data-ng-repeat="user in (filtered_users = (users | filter:search_str)) | pagination:page:limit"
+					<tr data-ng-repeat="user in (filtered_users = (users | filter:search_str)) | orderBy:['last', 'first'] | pagination:page:limit"
 						data-ng-click="view(user)" >
 						<td>
 							<div class="center-cropped pull-left img-rounded">
