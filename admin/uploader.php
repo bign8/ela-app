@@ -71,8 +71,8 @@ class PROCESSOR {
 
 		// Setup queries
 		$uGetSTH = $this->db->prepare("SELECT accountno FROM user WHERE accountno=?;");
-		$uAddSTH = $this->db->prepare("INSERT INTO user (first,last,company,title,city,state,bio,gradyear,phone,email,\"user\",img,accountno,pass) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
-		$uModSTH = $this->db->prepare("UPDATE \"user\" SET first=?,last=?,company=?,title=?,city=?,state=?,bio=?,gradyear=?,phone=?,email=?,\"user\"=?,img=? WHERE accountno=?;");
+		$uAddSTH = $this->db->prepare("INSERT INTO user (first,last,company,title,city,state,bio,gradyear,phone,email,\"user\",img,guide,accountno,pass) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+		$uModSTH = $this->db->prepare("UPDATE \"user\" SET first=?,last=?,company=?,title=?,city=?,state=?,bio=?,gradyear=?,phone=?,email=?,\"user\"=?,img=?,guide=? WHERE accountno=?;");
 		$eGetSTH = $this->db->prepare("SELECT eventID FROM event WHERE name=? AND programYearID=?;");
 		$eAddSTH = $this->db->prepare("INSERT INTO event (name, programYearID) VALUES (?,?);");
 
@@ -99,7 +99,8 @@ class PROCESSOR {
 				$data[ $this->titles['contsupref'] ], // email
 				$data[ $this->titles['username'] ],
 				$data[ $this->titles['photo link'] ],
-				$data[ $this->titles['accountno'] ]
+				$data[ $this->titles['guide'] ],
+				$data[ $this->titles['accountno'] ],
 			);
 			if (
 				!$uGetSTH->execute(array( $data[ $this->titles['accountno'] ] )) ||
@@ -225,7 +226,8 @@ class PROCESSOR {
 		if ( !in_array('city', $titles) ) die("No city title.");
 		if ( !in_array('state', $titles) ) die("No state title.");
 		if ( !in_array('bio', $titles) ) die("No bio title.");
-		// if ( !in_array('gradyear', $titles) ) die("No gradyear title.");
+		if ( !in_array('program', $titles) ) die("No program title.");
+		if ( !in_array('guide', $titles) ) die("No guide title.");
 		if ( !in_array('phone1', $titles) ) die("No phone1 title.");
 		if ( !in_array('contsupref', $titles) ) die("No contsupref title.");
 		if ( !in_array('username', $titles) ) die("No username title.");
@@ -285,6 +287,9 @@ __halt_compiler() ?>
 			</li>
 			<li>
 				<code>program</code> The graduation year of the participant
+			</li>
+			<li>
+				<code>guide</code> The participant's guide
 			</li>
 			<li>
 				<code>phone1</code> The phone number of the participant
