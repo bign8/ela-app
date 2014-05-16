@@ -40,6 +40,16 @@ angular.module('ela', [
 	'ui.bootstrap'
 ]).
 
+// need full user to open dialog
+controller('meet', ['$scope', '$controller', function ($scope, $controller) {
+	angular.extend(this, $controller('search', {$scope: $scope}));
+	$scope.open_dlg = function (accountno) {
+		for (var i = 0; i < $scope.users.length; i++) {
+			if ($scope.users[i].accountno == accountno) return $scope.view($scope.users[i]);
+		};
+	};
+}]).
+
 controller('search', ['$scope', '$http', '$modal', function ($scope, $http, $modal) {
 
 	// Initialize user data

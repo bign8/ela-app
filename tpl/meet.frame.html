@@ -4,10 +4,10 @@
 		<img src="data/img/logo-color.png" alt="Emerging Leaders Academy" class="img-responsive thumbnail" style="padding:20px">
 	</div>
 
-	<div class="col-sm-10">
+	<div class="col-sm-10" data-ng-controller="meet">
 
-		<div class="well clearfix">
-			<?php $random_user = $app->random_user(); ?>
+		<?php $random_user = $app->random_user(); ?>
+		<div class="well clearfix" data-ng-click="open_dlg('<?=$random_user['accountno']; ?>')">
 			<div class="col-sm-8">
 				<div class="page-header" style="margin-top:0">
 					<div class="pull-right">
