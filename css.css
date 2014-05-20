@@ -17,8 +17,6 @@ html, body { height: 100%; } /* The html and body elements cannot have any paddi
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
-/*#wrap > .color { min-height: 100%; }*/
-/*#wrap > .color-2 { background-color: #F0F0F0; }*/
 #wrap > .color > .container { padding: 200px 15px 60px; }
 #wrap > .color:last-child { min-height: 100%; }
 #wrap > .color:last-child > .container { 
@@ -31,7 +29,24 @@ code { font-size: 80%; }
 
 /* Nate page CSS
 -------------------------------------------------- */
-/*#wrap > .container { min-height: 600px; }*/
+.navbar-default {
+	background-color: #151F60;
+	border-color: #FDA044;
+}
+.navbar-default .navbar-nav > li > a,
+.credit, .credit a {
+	color: #FDA044;
+}
+.navbar-default .navbar-brand {
+	color: #FDA044;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-brand:hover {
+	color: #240D4A;
+	background-color: #FDA044;
+}
 .color-1 > div > .page-header, .color-1 .page-header small {
 	background-color: #FDB016;
 	color: #240D4A;
