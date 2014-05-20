@@ -5,13 +5,15 @@
 
 <div class="container" id="myela">
 	<div class="page-header">
-		<h1>
-			My ELA 
-			<small>
-				<?php echo $_SESSION['user']['first'] . ' ' . $_SESSION['user']['last']; ?> 
-				<em>(guided by <?php echo isset($_SESSION['user']['guide']) ? $_SESSION['user']['guide'] : 'unknown'; ?>)</em>
-			</small>
-		</h1>
+		<div class="container">
+			<h1>
+				My ELA 
+				<small>
+					<?php echo $_SESSION['user']['first'] . ' ' . $_SESSION['user']['last']; ?> 
+					<em>(guided by <?php echo isset($_SESSION['user']['guide']) ? $_SESSION['user']['guide'] : 'unknown'; ?>)</em>
+				</small>
+			</h1>
+		</div>
 	</div>
 	<p class="lead">
 		In this section, you will find information about the conference you chose, a link to the current calendar, the guide name we have on file, and a PDF copy of the ELA workbook.  If you need to change your conference or guide selection, please contact us at <a href="info@upstreamacademy.com">info@upstreamacademy.com</a>.  Please remember to enter information on your goals and your project in the <a href="http://ela.upstreamacademy.com/">OPT System</a>.

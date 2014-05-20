@@ -18,8 +18,8 @@ html, body { height: 100%; } /* The html and body elements cannot have any paddi
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 /*#wrap > .color { min-height: 100%; }*/
-#wrap > .color-2 { background-color: #F0F0F0; }
-#wrap > .color > .container { padding: 60px 15px; }
+/*#wrap > .color-2 { background-color: #F0F0F0; }*/
+#wrap > .color > .container { padding: 200px 15px 60px; }
 #wrap > .color:last-child { min-height: 100%; }
 #wrap > .color:last-child > .container { 
 	min-height: 100%;
@@ -32,7 +32,25 @@ code { font-size: 80%; }
 /* Nate page CSS
 -------------------------------------------------- */
 /*#wrap > .container { min-height: 600px; }*/
-.page-header > h1 { font-size: 24px; }
+.color-1 > div > .page-header, .color-1 .page-header small {
+	background-color: #FDB016;
+	color: #240D4A;
+}
+.color-2 > div > .page-header, .color-2 .page-header small {
+	background-color: #151F60;
+	color: #FDA044;
+}
+.page-header {
+	margin: -200px 0 20px;
+	padding-top: 100px;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.page-header h1 {
+	font-size: 24px;
+	margin-top: 0;
+}
 .lead { font-size: 18px; }
 img.pull-right { padding: 0; margin: 0 0 1em 1em; }
 .center-cropped {
