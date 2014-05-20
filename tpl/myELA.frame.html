@@ -38,9 +38,9 @@
 							<li>Conference 3 (<a href="#">about</a>)</li>
 						</ul>
 					<?php endif; ?>
-					<?php echo (is_null($conference['workbook'])) ? '' : '<a href="http://upstreamacademy.com/images/ELAApp/'. $conference['workbook'] .'">Workbook</a><br/>' ; ?>
-					<?php echo (is_null($conference['calendar'])) ? '' : '<a href="http://upstreamacademy.com/images/ELAApp/'. $conference['calendar'] .'">Calendar</a><br/>' ; ?>
-					<?php echo (is_null($conference['link'])) ? '' : '<a href="'. $conference['link'] .'">' . $conference['name'] . ' App</a><br/>' ; ?>
+					<?php echo (is_null($conference['workbook'])) ? '' : '<a target="_blank" href="http://upstreamacademy.com/images/ELAApp/'. $conference['workbook'] .'">Workbook</a><br/>' ; ?>
+					<?php echo (is_null($conference['calendar'])) ? '' : '<a target="_blank" href="http://upstreamacademy.com/images/ELAApp/'. $conference['calendar'] .'">Calendar</a><br/>' ; ?>
+					<?php echo (is_null($conference['link'])) ? '' : '<a target="_blank" href="'. $conference['link'] .'">' . $conference['name'] . ' App</a><br/>' ; ?>
 					<!-- <pre><?php // print_r($conference); ?></pre> -->
 				</div>
 			</div>

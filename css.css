@@ -30,30 +30,34 @@ code { font-size: 80%; }
 /* Nate page CSS
 -------------------------------------------------- */
 .navbar-default {
-	background-color: #151F60;
-	border-color: #FDA044;
+	border-color: #DBDDBE;
 }
-.navbar-default .navbar-nav > li > a,
-.credit, .credit a {
-	color: #FDA044;
+.well,
+.input-group-addon,
+.panel-default > .panel-heading {
+	background-color: #DBDDBE;
 }
-.navbar-default .navbar-brand {
-	color: #FDA044;
+.well .well {
+	background-color: #8CCAD0;
 }
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
+.credit, 
+.credit a,
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a {
+	color: #8CCAD0;
+}
+.navbar-default {
+	color: #8CCAD0;
+	background-color: #214978;
+}
+.color .page-header small,
+.color > div > .page-header,
+.navbar-default .navbar-brand:hover,
 .navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-brand:hover {
-	color: #240D4A;
-	background-color: #FDA044;
-}
-.color-1 > div > .page-header, .color-1 .page-header small {
-	background-color: #FDB016;
-	color: #240D4A;
-}
-.color-2 > div > .page-header, .color-2 .page-header small {
-	background-color: #151F60;
-	color: #FDA044;
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover {
+	color: #181F5F;
+	background-color: #8CCAD0;
 }
 .page-header {
 	margin: -200px 0 20px;
