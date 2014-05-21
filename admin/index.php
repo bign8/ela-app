@@ -17,7 +17,7 @@
 						Quiz <i class="glyphicon glyphicon-edit"></i>
 					</a>
 				</div>
-				Attendees Quizzer
+				Attendee Quizzer
 			</h3>
 			<p>Quiz yourself on conference attendees</p>
 		</div>
