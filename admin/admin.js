@@ -94,7 +94,7 @@ controller('user-quiz', ['$scope', 'API', '$http', function ($scope, API, $http)
 
 	// Controls
 	$scope.show_me = function (user) {
-		alert(user.first + ' ' + user.last);
+		alert(user.first + ' ' + user.last + '\n' + user.title + '\n' + user.company);
 	};
 	$scope.shuffle = function () {
 		angular.forEach($scope.users, function (value) {
