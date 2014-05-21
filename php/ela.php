@@ -40,7 +40,7 @@ class ELA {
 	public function save_profile( $data ) {
 		$mail = new Mailer;
 		$pass = true;
-		$user = $this->db->prepare("SELECT accountno,first,last,company,title,city,state,bio,gradYear,phone,email FROM user WHERE accountno=?;");
+		$user = $this->db->prepare("SELECT accountno,first,last,company,title,city,state,bio,gradYear,phone,email,img FROM user WHERE accountno=?;");
 		$pass = $user->execute(array( $_SESSION['user']['accountno'] ));
 		$old = $user->fetch(PDO::FETCH_ASSOC);
 

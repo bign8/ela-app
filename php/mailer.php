@@ -9,13 +9,13 @@ class Mailer extends PHPMailer {
 		$this->setFrom(config::defaultEmail, config::defaultFrom);
 
 		// For dev purposes
-		$this->isSMTP();                        // Set mailer to use SMTP
-		$this->Host       = 'smtp.gmail.com';   // Specify main and backup server
-		$this->Username   = config::gmail_user; // SMTP username
-		$this->Password   = config::gmail_pass; // SMTP password
-		$this->SMTPAuth   = true;               // Enable SMTP authentication
-		$this->SMTPSecure = 'tls';              // SMTP authentication type
-		$this->Port       = 587;                // SMTP com port
+		// $this->isSMTP();                        // Set mailer to use SMTP
+		// $this->Host       = 'smtp.gmail.com';   // Specify main and backup server
+		// $this->Username   = config::gmail_user; // SMTP username
+		// $this->Password   = config::gmail_pass; // SMTP password
+		// $this->SMTPAuth   = true;               // Enable SMTP authentication
+		// $this->SMTPSecure = 'tls';              // SMTP authentication type
+		// $this->Port       = 587;                // SMTP com port
 	}
 
 	public function notify($subject, $html) {
