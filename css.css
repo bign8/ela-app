@@ -29,6 +29,12 @@ code { font-size: 80%; }
 
 /* Nate page CSS
 -------------------------------------------------- */
+a {
+	color: #8CCAD0;
+}
+a:hover {
+	color: #DBDDBE;
+}
 .navbar-default {
 	border-color: #DBDDBE;
 }

@@ -30,7 +30,7 @@
 		<div class="container">
 			<p class="pull-right social">
 				<a href="http://www.linkedin.com/groups?gid=4403897" target="blank">
-					<i class="fa fa-linkedin-square text-muted" style="color:#0077B5"></i>
+					<i class="fa fa-linkedin-square"></i>
 				</a>
 			</p>
 			<p class="text-muted credit">
