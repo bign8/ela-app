@@ -124,9 +124,12 @@ ArrestDB::Serve('GET', '/(#any)/(#num)?', function ($table, $id = null) {
 	return ArrestDB::Reply($result);
 });
 
-ArrestDB::Serve('DELETE', '/(#any)/(#num)', function ($table, $id) {
+ArrestDB::Serve('DELETE', '/(#any)/(#any)', function ($table, $id) {
+	$lookup = ($table == 'user') ? 'accountno' : ($table . 'ID');
+	$id = trim($id, '"');
+
 	$query = array(
-		sprintf('DELETE FROM "%s" WHERE "%s" = ?', $table, $table.'ID'),
+		sprintf('DELETE FROM "%s" WHERE "%s" = ?', $table, $lookup),
 	);
 
 	$query = sprintf('%s;', implode(' ', $query));

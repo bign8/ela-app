@@ -114,8 +114,21 @@ angular.module('ela-user', ['ela-admin-helpers']).
 
 controller('user-edit', ['$scope', 'API', function ($scope, API) {
 	$scope.search = '';
-	var User = new API('user');
+	var User = new API('user', 'accountno');
 	$scope.users = User.list;
+	$scope.delete = User.rem.bind( User );
+
+	// Order By
+	$scope.fields = [
+		{field: ['first','last'], disp: 'First Name'},
+		{field: ['last','first'], disp: 'Last Name'},
+		{field: ['title','first','last'], disp: 'Title'},
+		{field: ['company','first','last'], disp: 'Company'},
+		{field: ['city','state','first','last'], disp: 'City'},
+		{field: ['state','city','first','last'], disp: 'State'}
+	];
+	$scope.field = $scope.fields[0].field;
+	$scope.sort_order = false;
 }]);
 
 // ELA Helper Module
@@ -150,7 +163,7 @@ factory('API', ['$http', function ($http) { // TODO: improve with browser data c
 			return $http.put('db/' + this.table + '/' + item[ this.id ], item).then( cleanup.bind(this) );
 		},
 		rem: function (item) {
-			return $http.delete('db/' + this.table + '/' + item[ this.id ]).then( cleanup.bind(this) ).then(rem_obj.bind(this, item));
+			return $http.delete('db/' + this.table + '/"' + item[ this.id ] + '"').then( cleanup.bind(this) ).then(rem_obj.bind(this, item));
 		},
 		add: function (item) {
 			return $http.post('db/' + this.table, item).then( cleanup.bind(this) ).then(add_obj.bind(this, item));

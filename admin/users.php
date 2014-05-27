@@ -76,17 +76,39 @@
 
 	<div class="col-md-6">
 		<h2>
-			<div class="col-md-6 pull-right">
-				<input type="text" class="form-control" placeholder="Search..." ng-model="search">
-			</div>
 			User Manager
 		</h2>
+		
+		<div class="row" style="margin-bottom:20px">
+			<div class="col-md-6"><!-- order -->
+				<div class="input-group">
+					<label class="input-group-addon" for="search_order">Order</label>
+					<select data-ng-model="field" class="form-control" id="search_order" 
+						data-ng-options="x.field as x.disp for x in fields" 
+						data-ng-change="sort_order=false">
+						<option value="" disabled>Order By...</option>
+					</select>
+					<span class="input-group-btn">
+						<button class="btn btn-info" data-ng-click="sort_order=!sort_order">
+							<i class="glyphicon" data-ng-class="{'glyphicon-chevron-down':sort_order, 'glyphicon-chevron-up':!sort_order}"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<input type="text" class="form-control" placeholder="Search..." ng-model="search">
+			</div>
+		</div>
+
 		<table class="table">
 			<tbody>
-				<tr ng-repeat=" user in users | filter:search | orderBy:['last','first'] ">
+				<tr ng-repeat=" user in users | filter:search | orderBy:field:sort_order ">
 					<td>
 						{{user.first}} {{user.last}}<br/>
-						<span class="text-muted">{{user.user}}</span>
+						<span class="text-muted">{{user.user}}</span><br/>
+						<span class="text-muted">{{user.title}}</span><br/>
+						<span class="text-muted">{{user.company}}</span>
 						<form method="post" action="users.php">
 							<input type="hidden" name="accountno" value="{{user.accountno}}">
 							<input type="submit" name="action" value="emulate" class="btn btn-default btn-xs">
@@ -102,6 +124,8 @@
 								</span>
 							</div>
 						</form>
+						<br/>
+						<button type="button" class="btn btn-danger btn-sm pull-right" ng-click="delete(user)">Delete User</button>
 					</td>
 				</tr>
 			</tbody>
