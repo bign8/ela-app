@@ -4,14 +4,13 @@
 	include( to_path('tpl', 'header.tpl.html') );
 
 	$admins = $admin->getAdmins();
-	$users = $admin->getUsers();
 ?>
 
 <div class="page-header clearfix">
 	<h2>ELA User Manager</h2>
 </div>
 
-<div class="row">
+<div class="row" ng-controller="user-edit">
 	<div class="col-md-6">
 		<h2>Administrator Manager</h2>
 		<div class="well">
@@ -76,32 +75,35 @@
 	</div>
 
 	<div class="col-md-6">
-		<h2>User Manager</h2>
+		<h2>
+			<div class="col-md-6 pull-right">
+				<input type="text" class="form-control" placeholder="Search..." ng-model="search">
+			</div>
+			User Manager
+		</h2>
 		<table class="table">
 			<tbody>
-				<?php foreach ($users as $user): ?>
-					<tr>
-						<td>
-							<?php echo $user['first'] . ' ' . $user['last']; ?><br/>
-							<span class="text-muted"><?php echo $user['user']; ?></span>
-							<form method="post" action="users.php">
-								<input type="hidden" name="accountno" value="<?php echo $user['accountno']; ?>">
-								<input type="submit" name="action" value="emulate" class="btn btn-default btn-xs">
-							</form>
-						</td>
-						<td>
-							<form method="post" action="users.php">
-								<input type="hidden" name="accountno" value="<?php echo $user['accountno']; ?>">
-								<div class="input-group">
-									<input type="password" name="pass" placeholder="New Password" class="form-control input-sm" required>
-									<span class="input-group-btn">
-										<button type="submit" name="action" value="pw-user" class="btn btn-warning btn-sm">Change</button>
-									</span>
-								</div>
-							</form>
-						</td>
-					</tr>
-				<?php endforeach; ?>
+				<tr ng-repeat=" user in users | filter:search | orderBy:['last','first'] ">
+					<td>
+						{{user.first}} {{user.last}}<br/>
+						<span class="text-muted">{{user.user}}</span>
+						<form method="post" action="users.php">
+							<input type="hidden" name="accountno" value="{{user.accountno}}">
+							<input type="submit" name="action" value="emulate" class="btn btn-default btn-xs">
+						</form>
+					</td>
+					<td>
+						<form method="post" action="users.php">
+							<input type="hidden" name="accountno" value="{{user.accountno}}">
+							<div class="input-group">
+								<input type="password" name="pass" placeholder="New Password" class="form-control input-sm" required>
+								<span class="input-group-btn">
+									<button type="submit" name="action" value="pw-user" class="btn btn-warning btn-sm">Change</button>
+								</span>
+							</div>
+						</form>
+					</td>
+				</tr>
 			</tbody>
 	</div>
 </div>

@@ -3,6 +3,7 @@ angular.module('ela-admin', [
 	'ela-faq',
 	'ela-quiz',
 	'ela-quote',
+	'ela-user',
 ]);
 
 // ELA Event Module (/admin/event.php)
@@ -106,6 +107,15 @@ controller('user-quiz', ['$scope', 'API', '$http', function ($scope, API, $http)
 	$scope.limits = [8,16,32,64,128];
 	$scope.limit = $scope.limits[0];
 	$scope.page = 1;
+}]);
+
+// ELA User (/admin/users.php)
+angular.module('ela-user', ['ela-admin-helpers']).
+
+controller('user-edit', ['$scope', 'API', function ($scope, API) {
+	$scope.search = '';
+	var User = new API('user');
+	$scope.users = User.list;
 }]);
 
 // ELA Helper Module
