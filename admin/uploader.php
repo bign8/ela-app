@@ -82,6 +82,7 @@ class PROCESSOR {
 
 
 		// process rows
+		$notified = array();
 		while (($data = fgetcsv($this->handle, 1000, ",")) !== FALSE) {
 			$data = array_map('trim', $data);
 
@@ -93,7 +94,7 @@ class PROCESSOR {
 				$data[ $this->titles['title'] ],
 				$data[ $this->titles['city'] ],
 				$data[ $this->titles['state'] ],
-				iconv("SHIFT_JIS", "UTF-8", $data[ $this->titles['bio'] ]), // microsoft :( http://i-tools.org/charset
+				@iconv("SHIFT_JIS", "UTF-8", $data[ $this->titles['bio'] ]), // microsoft :( http://i-tools.org/charset
 				$data[ $this->titles['program'] ], // no grad-year yet
 				$data[ $this->titles['phone1'] ],
 				$data[ $this->titles['contsupref'] ], // email
@@ -121,7 +122,12 @@ class PROCESSOR {
 				switch ( strtolower($data[$key]) ) { // just check if key has numbers (ie: year)
 					case 'deferred':
 					case 'none':
-					case '': echo 'Skipped insert event "' . $data[$key] . '"<br/>' . "\r\n"; break;
+					case '': 
+						if (!in_array($data[$key], $notified)) {
+							array_push($notified, $data[$key]);
+							echo 'Skipped insert event "' . $data[$key] . '"<br/>' . "\r\n";
+						}
+						break;
 
 					case 'undecided': $eventID = null; break;
 
