@@ -1,4 +1,4 @@
-<div class="container" id="profile">
+<div class="container" id="profile" ng-controller="profile">
 	<div class="page-header">
 		<div class="container">
 			<h1>My Profile <small><?php echo $_SESSION['user']['first'] . ' ' . $_SESSION['user']['last']; ?></small></h1>
@@ -37,7 +37,7 @@
 						<label for="user_first" class="col-sm-3 control-label">First&nbsp;Name</label>
 						<div class="col-sm-9">
 							<input type="text" class="form-control" id="user_first" placeholder="First Name" name="first" 
-								value="<?php echo $_SESSION['user']['first']; ?>">
+								value="<?php echo $_SESSION['user']['first']; ?>" ng-model="name" ng-initial>
 						</div>
 					</div>
 					<div class="form-group">
@@ -92,9 +92,10 @@
 				</div>
 				<div class="col-sm-6">
 					<label for="user_bio">Biography</label>
-					<textarea id="user_bio" class="form-control text-auto-scale" placeholder="Bio..." rows="10" name="bio"><?php echo $_SESSION['user']['bio']; ?></textarea>
+					<p>{{name}} {{bio}}</p>
+					<textarea id="user_bio" class="form-control text-auto-scale" placeholder="Bio..." rows="10" name="bio" ng-model="bio" ng-initial><?php echo $_SESSION['user']['bio']; ?></textarea>
 					<p class="help-block">
-						* Your name, title and company will automatically be added to the bio section.<br/>
+						* Your name will automatically be added to the bio section.<br/>
 						Please make sure this section starts with a verb.
 					</p>
 

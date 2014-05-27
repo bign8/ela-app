@@ -40,6 +40,8 @@ angular.module('ela', [
 	'ui.bootstrap'
 ]).
 
+controller('profile', angular.noop).
+
 // need full user to open dialog
 controller('meet', ['$scope', '$controller', function ($scope, $controller) {
 	angular.extend(this, $controller('search', {$scope: $scope}));
@@ -112,6 +114,15 @@ filter('pagination', function () {
 	return function (inputArray, selectedPage, pageSize) {
 		var start = (selectedPage-1) * pageSize;
 		return inputArray.slice(start, start + pageSize);
+	};
+}).
+
+directive('ngInitial', function() {
+	return {
+		restrict: 'A',
+		controller: ['$scope', '$attrs', '$parse', '$element', function ($scope, $attrs, $parse, $element) {
+			$parse( $attrs.ngModel ).assign( $scope, $attrs.ngInitial || $attrs.value || $element.html() );
+		}]
 	};
 }).
 
