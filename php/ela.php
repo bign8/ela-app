@@ -89,19 +89,23 @@ class ELA {
 		$html  = "<p>The following changes have been made to an ela-app user</p>\r\n";
 		$html .= "<table>\r\n";
 		$html .= "	<tr><th>Attribute</th><th>Old Version</th><th>New Version</th></tr>\r\n";
-		$html .= "	<tr><td>First</td><td>{$old['first']}</td><td>{$data['first']}</td></tr>\r\n";
-		$html .= "	<tr><td>Last</td><td>{$old['last']}</td><td>{$data['last']}</td></tr>\r\n";
-		$html .= "	<tr><td>Title</td><td>{$old['title']}</td><td>{$data['title']}</td></tr>\r\n";
-		$html .= "	<tr><td>Company</td><td>{$old['company']}</td><td>{$data['company']}</td></tr>\r\n";
-		$html .= "	<tr><td>City</td><td>{$old['city']}</td><td>{$data['city']}</td></tr>\r\n";
-		$html .= "	<tr><td>State</td><td>{$old['state']}</td><td>{$data['state']}</td></tr>\r\n";
-		$html .= "	<tr><td>Phone</td><td>{$old['phone']}</td><td>{$data['phone']}</td></tr>\r\n";
-		$html .= "	<tr><td>Email</td><td>{$old['email']}</td><td>{$data['email']}</td></tr>\r\n";
-		$html .= "	<tr><td>Bio</td><td>{$old['bio']}</td><td>{$data['bio']}</td></tr>\r\n";
+		$html .= $this->render_row('First',  'first',   $old, $data);
+		$html .= $this->render_row('Last',   'last',    $old, $data);
+		$html .= $this->render_row('Title',  'title',   $old, $data);
+		$html .= $this->render_row('Company','company', $old, $data);
+		$html .= $this->render_row('City',   'city',    $old, $data);
+		$html .= $this->render_row('State',  'state',   $old, $data);
+		$html .= $this->render_row('Phone',  'phone',   $old, $data);
+		$html .= $this->render_row('Email',  'email',   $old, $data);
+		$html .= $this->render_row('Bio',    'bio',     $old, $data);
 		$html .= "</table>\r\n";
 		if ($pass) $pass = $mail->notify('ELA Profile Update: ' . $data['first'] . ' ' . $data['last'], $html);
 
 		return $pass;
+	}
+	private function render_row( $title, $key, $old, $new ) {
+		$out = "\t<tr" . ( $old[$key] != $new[$key] ? ' style="background-color:red;color:white;"' : '' );
+		return $out . "><td>{$title}</td><td>{$old[$key]}</td><td>{$new[$key]}</td></tr>\r\n";
 	}
 	public function send_reset( $user ) {
 		$getSTH = $this->db->prepare("SELECT accountno, email, (first || ' ' || last) name FROM `user` WHERE `email`=? OR `user`=? LIMIT 1;");
