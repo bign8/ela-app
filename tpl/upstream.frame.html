@@ -7,8 +7,9 @@
 
 	<!-- style -->
 	<style type="text/css">
-	.upstream_team { position:relative; margin:0 auto; display:block; width:599px; height:937px; }
-	.upstream_team img { border:0; position:absolute; visibility:hidden; width:599px; height:937px; }
+	/* last attribute on both is to crop border from images...temporay fix */
+	.upstream_team { position:relative; margin:0 auto; display:block; width:599px; height:937px; overflow: hidden; }
+	.upstream_team img { border:0; position:absolute; visibility:hidden; width:599px; height:937px; left: -2px; }
 	</style>
 
 	<!-- JS -->
