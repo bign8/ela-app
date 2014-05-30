@@ -80,7 +80,7 @@ controller('search', ['$scope', '$http', '$modal', function ($scope, $http, $mod
 		{field: ['first','last'], disp: 'First Name'},
 		{field: ['last','first'], disp: 'Last Name'},
 		{field: ['title','first','last'], disp: 'Title'},
-		{field: ['company','first','last'], disp: 'Company'},
+		{field: ['company','first','last'], disp: 'Firm'},
 		{field: ['city','state','first','last'], disp: 'City'},
 		{field: ['state','city','first','last'], disp: 'State'}
 	];

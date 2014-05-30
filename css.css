@@ -46,6 +46,9 @@ a:hover {
 .well .well {
 	background-color: #8CCAD0;
 }
+.well a:hover {
+	color: #214978;
+}
 .credit, 
 .credit a,
 .navbar-default .navbar-brand,
