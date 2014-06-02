@@ -310,7 +310,7 @@ __halt_compiler() ?>
 				<code>password</code> The password of the participant (unencrypted)
 			</li>
 			<li>
-				<code>photo link</code> The name of the photo of the user.  Located in <code>http://upstreamacademy.com/images/ELAApp/...</code>
+				<code>photo link</code> The name of the photo of the user.  Located in <code>http://upstreamacademy.com/apps/...</code>
 			</li>
 			<li>
 				<code>event 14-15</code> At least one event (usually 3) that presents the year span in <code>[0-9]{2}-[0-9]{2}</code> format
