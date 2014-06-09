@@ -83,26 +83,21 @@ class PROCESSOR {
 
 		// process rows
 		$notified = array();
+
 		while (($data = fgetcsv($this->handle, 1000, ",")) !== FALSE) {
 			$data = array_map('trim', $data);
-
-			// Insert user
-			$user_data = array(
-				$data[ $this->titles['first'] ],
-				$data[ $this->titles['last'] ],
-				$data[ $this->titles['company'] ],
-				$data[ $this->titles['title'] ],
-				$data[ $this->titles['city'] ],
-				$data[ $this->titles['state'] ],
-				@iconv("SHIFT_JIS", "UTF-8", $data[ $this->titles['bio'] ]), // microsoft :( http://i-tools.org/charset
-				$data[ $this->titles['program'] ], // no grad-year yet
-				$data[ $this->titles['phone1'] ],
-				$data[ $this->titles['contsupref'] ], // email
-				$data[ $this->titles['username'] ],
-				$data[ $this->titles['photo link'] ],
-				$data[ $this->titles['guide'] ],
-				$data[ $this->titles['accountno'] ],
-			);
+			
+			// Clean data for importing
+			$map = function () use ($data) {
+				$arr = func_get_args();
+				$cb = function ($value) use ($data) {
+					$ele = $data[ $this->titles[$value] ];
+					return iconv(mb_detect_encoding($ele, mb_detect_order(), true), "UTF-8", $ele);
+				};
+				return array_map($cb, $arr);
+			};
+			$user_data = $map('first','last','company','title','city','state','bio','program','phone1','contsupref','username','photo link','guide','accountno');
+			
 			if (
 				!$uGetSTH->execute(array( $data[ $this->titles['accountno'] ] )) ||
 				$uGetSTH->fetchColumn() === FALSE
