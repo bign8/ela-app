@@ -46,7 +46,7 @@
 			<thead>
 				<tr>
 					<th class="col-xs-3">Name</th>
-					<th class="col-xs-4">Date</th>
+					<th class="col-xs-4">Date <small><code>YYYY-MM-DD</code></small></th>
 					<th class="col-xs-5">Link</th>
 					<th></th>
 				</tr>
