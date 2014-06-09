@@ -163,11 +163,12 @@ factory('API', ['$http', function ($http) { // TODO: improve with browser data c
 			return $http.put('db/' + this.table + '/' + item[ this.id ], item).then( cleanup.bind(this) );
 		},
 		rem: function (item) {
-			return $http.delete('db/' + this.table + '/"' + item[ this.id ] + '"').then( cleanup.bind(this) ).then(rem_obj.bind(this, item));
+			var id = this.id == 'accountno' ? 'user' : this.id; // accountno can't pass through url's
+			return $http.delete('db/' + this.table + '/' + item[ id ]).then( cleanup.bind(this) ).then(rem_obj.bind(this, item));
 		},
 		add: function (item) {
 			return $http.post('db/' + this.table, item).then( cleanup.bind(this) ).then(add_obj.bind(this, item));
-		}
+		},
 	};
 	return service;
 }]).
