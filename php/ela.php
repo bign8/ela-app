@@ -40,7 +40,7 @@ class ELA {
 	public function save_profile( $data ) {
 		$mail = new Mailer;
 		$pass = true;
-		$user = $this->db->prepare("SELECT accountno,first,last,company,title,city,state,bio,gradYear,phone,email,img FROM user WHERE accountno=?;");
+		$user = $this->db->prepare("SELECT accountno,first,last,company,title,city,state,bio,gradYear,phone,email,img,guide FROM user WHERE accountno=?;");
 		$pass = $user->execute(array( $_SESSION['user']['accountno'] ));
 		$old = $user->fetch(PDO::FETCH_ASSOC);
 
@@ -77,8 +77,8 @@ class ELA {
 
 		// Update settings
 		if ($pass) {
-			$sth = $this->db->prepare("UPDATE user SET first=?,last=?,title=?,company=?,city=?,state=?,bio=?,phone=?,email=? WHERE accountno=?;");
-			$pass = $sth->execute(array( $data['first'], $data['last'], $data['title'], $data['company'], $data['city'], $data['state'], $data['bio'], $data['phone'], $data['email'], $_SESSION['user']['accountno'] ));
+			$sth = $this->db->prepare("UPDATE user SET first=?,last=?,title=?,company=?,city=?,state=?,bio=?,phone=?,email=?,guide=? WHERE accountno=?;");
+			$pass = $sth->execute(array( $data['first'], $data['last'], $data['title'], $data['company'], $data['city'], $data['state'], $data['bio'], $data['phone'], $data['email'], $data['guide'], $_SESSION['user']['accountno'] ));
 		}
 		
 		// Re-assign session data
@@ -91,6 +91,7 @@ class ELA {
 		$html .= "	<tr><th>Attribute</th><th>Old Version</th><th>New Version</th></tr>\r\n";
 		$html .= $this->render_row('First',  'first',   $old, $data);
 		$html .= $this->render_row('Last',   'last',    $old, $data);
+		$html .= $this->render_row('Guide',  'guide',   $old, $data);
 		$html .= $this->render_row('Title',  'title',   $old, $data);
 		$html .= $this->render_row('Company','company', $old, $data);
 		$html .= $this->render_row('City',   'city',    $old, $data);
