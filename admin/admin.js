@@ -139,7 +139,7 @@ factory('API', ['$http', function ($http) { // TODO: improve with browser data c
 	var rem_obj = function (item) { this.list.splice(this.list.indexOf(item), 1); };
 	var clear_new = function() {
 		var len = (this.list || []).length;
-		for (var i = 0; i < len; i++) this.list[i].is_new = false;
+		for (var i = 0; i < len; i++) delete this.list[i].is_new;
 	};
 	var add_obj = function (item, data) {
 		item.is_new = true;
