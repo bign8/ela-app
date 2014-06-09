@@ -3,3 +3,4 @@ phpliteadmin*
 config.php
 *app.sublime-*
 scrap/*
+tpl/scrap/*

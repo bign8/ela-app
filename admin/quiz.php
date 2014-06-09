@@ -25,9 +25,20 @@
 			</a>
 		</div>
 
+		<div class="col-md-2">
+			<div class="input-group">
+				<label for="myYear" class="input-group-addon">Year:</label>
+				<select name="myYear" id="myYear" class="form-control" ng-model="myYear"
+					ng-options="year for year in years "
+				>
+					<option value="">ALL</option>
+				</select>
+			</div>
+		</div>
+
 		<div class="col-md-3">
 			<div class="input-group">
-				<label class="input-group-addon" for="myEvent">Event: </label>
+				<label class="input-group-addon" for="myEvent">Event:</label>
 				<select class="form-control" ng-model="myEvent" id="myEvent" 
 					ng-options="e.name group by e.programYear for e in events | orderBy:['-programYear','name']"
 				>
@@ -36,16 +47,16 @@
 			</div>
 		</div>
 
-		<div class="col-md-5">
+		<div class="col-md-3">
 			<div class="input-group">
-				<label class="input-group-addon" for="query">Search: </label>
+				<label class="input-group-addon" for="query">Search:</label>
 				<input type="text" id="query" class="form-control" ng-model="search_str">
 			</div>
 		</div>
 
 		<div class="hidden-xs col-md-2" ng-hide="filtered.length < 8">
 			<div class="input-group">
-				<span class="input-group-addon">Page Size: </span>
+				<span class="input-group-addon">Page Size:</span>
 				<select data-ng-model="limit" class="form-control" id="search_page" data-ng-options="x for x in limits">
 					<option value="" disabled>Per Page...</option>
 				</select>
@@ -56,7 +67,7 @@
 	<div data-ng-switch="view">
 		<div data-ng-switch-when="tile">
 			<div class="row">
-				<span class="col-md-3" data-ng-repeat="user in (filtered_users = (users | filter:search_str)) | orderBy:'random' | pagination:page:limit">
+				<span class="col-md-3" data-ng-repeat="user in (filtered_users = (users | filter:{gradYear:myYear} | filter:search_str)) | orderBy:'random' | pagination:page:limit">
 					<div class="thumbnail" data-ng-click="show_me(user)">
 						<img data-ng-src="http://upstreamacademy.com/apps/{{user.img}}" class="img-rounded" height="100" 
 							data-ng-attr-title="{{user.first}} {{user.last}}"
@@ -92,7 +103,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr data-ng-repeat="user in (filtered_users = (users | filter:search_str)) | orderBy:['last', 'first'] | pagination:page:limit"
+					<tr data-ng-repeat="user in (filtered_users = (users | filter:{gradYear:myYear} | filter:search_str)) | orderBy:['last', 'first'] | pagination:page:limit"
 						data-ng-click="view(user)" >
 						<td>
 							<div class="center-cropped pull-left img-rounded">
@@ -111,11 +122,11 @@
 							</strong><br/>
 							<small data-ng-bind="user.title">Intern</small><br/>
 							<span class="text-muted">
-								<span data-ng-bind="user.company">Temporary INC.</span><br/>
-								<span data-ng-bind="user.city">Two Dot</span>,&nbsp;<span data-ng-bind="user.state">MT</span>
+								<small data-ng-bind="user.company">Temporary INC.</small><br/>
+								<small data-ng-bind="user.city">Two Dot</small>,&nbsp;<small data-ng-bind="user.state">MT</small>
 							</span>
 						</td>
-						<td data-ng-bind="user.bio" class="hidden-xs">was an amazing ...</td>
+						<td class="hidden-xs">{{user.first}} {{user.bio}}</td>
 					</tr>
 				</tbody>
 			</table>

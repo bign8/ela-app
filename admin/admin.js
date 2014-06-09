@@ -68,10 +68,20 @@ angular.module('ela-quiz', ['ela-admin-helpers', 'ui.bootstrap']).
 
 controller('user-quiz', ['$scope', 'API', '$http', function ($scope, API, $http) {
 
-	// Initial (load all users)
-	var User = new API('user', 'accountno');
+	// Initial (load all users + years)
+	$scope.years = [];
+	var User = new API('user', 'accountno', function () {
+		angular.forEach(User.list, function (value) {
+			if ( $scope.years.indexOf(value.gradYear) < 0 ) $scope.years.push( value.gradYear );
+		});
+	});
 	$scope.users = User.list;
 	$scope.view = 'tile';
+
+	// Fix: reselect 'ALL' bug
+	$scope.$watch('myYear', function (value) {
+		if (!value) $scope.myYear = undefined;
+	});
 
 	// Load events
 	$scope.events = [];
