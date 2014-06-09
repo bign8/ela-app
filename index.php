@@ -19,7 +19,6 @@
 		<?php if ($auth) $ela_include('tpl/meet.frame.html'); ?>
 		<?php $ela_include('tpl/home.frame.html'); ?>
 		<?php if (!$auth) $ela_include('tpl/login.frame.html'); ?>
-		<?php $ela_include('tpl/upstream.frame.html'); ?>
 		<?php $ela_include('tpl/faq.frame.html'); ?>
 		<?php if ($auth) $ela_include('tpl/search.frame.html'); ?>
 		<?php if ($auth) $ela_include('tpl/myELA.frame.html'); ?>
