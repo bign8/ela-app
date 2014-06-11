@@ -22,10 +22,10 @@
 		<?php foreach ($conferences as $conference): ?>
 			<div class="<?php echo $class; ?>">
 				<div class="well">
-					<h2 style="margin-top:0">
+					<h3 style="margin-top:0">
 						Year #<?php echo $conference['year']; ?>
-						<small><?php echo (is_null($conference['eventID'])) ? 'Undecided': $conference['name']; ?></small>
-					</h2>
+					</h3>
+					<span><?php echo (is_null($conference['eventID'])) ? 'Undecided': $conference['name']; ?><br/></span>
 					<?php if ( is_null($conference['eventID']) ): ?>
 						<p class="text-danger">
 							You have not chosen a conference to attend.<br/>
