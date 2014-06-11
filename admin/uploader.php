@@ -88,11 +88,12 @@ class PROCESSOR {
 			$data = array_map('trim', $data);
 			
 			// Clean data for importing
-			$map = function () use ($data) {
+			$titles = $this->titles;
+			$map = function () use ($data, $titles) {
 				$arr = func_get_args();
-				$cb = function ($value) use ($data) {
-					$ele = $data[ $this->titles[$value] ];
-					return iconv(mb_detect_encoding($ele, mb_detect_order(), true), "UTF-8", $ele);
+				$cb = function ($value) use ($data, $titles) {
+					$ele = $data[ $titles[$value] ];
+					return @iconv(mb_detect_encoding($ele, mb_detect_order(), true), "UTF-8", $ele);
 				};
 				return array_map($cb, $arr);
 			};
