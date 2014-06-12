@@ -50,6 +50,7 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
+						<th>Photo</th>
 						<th>Contact</th>
 						<th style="width:75%" class="hidden-xs">
 							<small class="pull-right text-right" style="font-weight:normal" data-ng-bind="total_rows()"></small>
@@ -66,6 +67,8 @@
 								data-ng-attr-title="{{user.first}} {{user.last}}"
 								data-ng-attr-alt="{{user.first}} {{user.last}}" alt="John Doe" src="data/img/Doe,%20John.jpg" />
 							</div>
+						</td>
+						<td>
 							<div class="pull-right">
 								<a data-ng-href="tel:{{user.phone}}" data-ng-show="user.phone"><i class="glyphicon glyphicon-phone-alt"></i></a>
 								<a data-ng-href="mailto:{{user.email}}" data-ng-show="user.email"><i class="glyphicon glyphicon-envelope"></i></a>
@@ -78,7 +81,8 @@
 							<small data-ng-bind="user.title">Intern</small><br/>
 							<span class="text-muted">
 								<small data-ng-bind="user.company">Temporary INC.</small><br/>
-								<small data-ng-bind="user.city">Two Dot</small>,&nbsp;<small data-ng-bind="user.state">MT</small>
+								<small data-ng-bind="user.city">Two Dot</small>,&nbsp;<small data-ng-bind="user.state">MT</small><br/>
+								<small>ELA Year: {{user.gradYear}}</small>
 							</span>
 						</td>
 						<td data-ng-bind="user.bio" class="hidden-xs">was an amazing ...</td>
