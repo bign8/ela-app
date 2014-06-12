@@ -25,7 +25,11 @@
 					<h3 style="margin-top:0">
 						Year #<?php echo $conference['year']; ?>
 					</h3>
-					<span><?php echo (is_null($conference['eventID'])) ? 'Undecided': $conference['name']; ?><br/></span>
+					<span>
+						<?php echo (is_null($conference['eventID'])) ? 'Undecided': $conference['name']; ?>&nbsp;
+							<?php echo (is_null($conference['link']) || $conference['link']=='') ? '' : '<a target="_blank" href="'. $conference['link'] .'">App</a>' ; ?>
+						<br/>
+					</span>
 					<?php if ( is_null($conference['eventID']) ): ?>
 						<p class="text-danger">
 							You have not chosen a conference to attend.<br/>
@@ -40,7 +44,6 @@
 					<?php endif; ?>
 					<?php echo (is_null($conference['workbook']) || $conference['workbook']=='') ? '' : '<a target="_blank" href="http://upstreamacademy.com/apps/'. $conference['workbook'] .'">Workbook</a><br/>' ; ?>
 					<?php echo (is_null($conference['calendar']) || $conference['calendar']=='') ? '' : '<a target="_blank" href="http://upstreamacademy.com/apps/'. $conference['calendar'] .'">Calendar</a><br/>' ; ?>
-					<?php echo (is_null($conference['link']) || $conference['link']=='') ? '' : '<a target="_blank" href="'. $conference['link'] .'">' . $conference['name'] . ' App</a><br/>' ; ?>
 					<!-- <pre><?php // print_r($conference); ?></pre> -->
 				</div>
 			</div>
